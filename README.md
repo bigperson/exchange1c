@@ -1,8 +1,11 @@
 # PHP exchange1c - обмен 1С предприятие с сайтом на php
 ![Packagist](https://img.shields.io/packagist/l/doctrine/orm.svg?style=flat-square)
+[![Packagist](https://img.shields.io/packagist/dt/bigperson/exchange1c.svg?style=flat-square)](https://packagist.org/packages/bigperson/exchange1c)
+[![Packagist](https://img.shields.io/packagist/v/bigperson/exchange1c.svg?style=flat-square)](https://packagist.org/packages/bigperson/exchange1c)
 [![Travis (.org)](https://img.shields.io/travis/bigperson/exchange1c.svg?style=flat-square)](https://travis-ci.org/bigperson/exchange1c)
 [![Codecov](https://img.shields.io/codecov/c/github/bigperson/exchange1c.svg?style=flat-square)](https://codecov.io/gh/bigperson/exchange1c)
 [![StyleCI](https://github.styleci.io/repos/153751681/shield?branch=master)](https://github.styleci.io/repos/153751681)
+
 
 
 
@@ -12,7 +15,7 @@
 
 Если у вас версия конфигурации ниже, то скорее всего библиотека все равно будет работать, т.к. по большей части, обмен с сайтами сильно не меняется в 1С от версии к версии.
 
-Данная библиотека была написана основываеясь на модуле https://github.com/carono/yii2-1c-exchange все основные интерфейсы взяты именно из этой библиотеки
+Данная библиотека была написана на основе модуля https://github.com/carono/yii2-1c-exchange - все основные интерфейсы взяты именно из этого модуля.
 
 # Зависимости
 * php ^7.1
