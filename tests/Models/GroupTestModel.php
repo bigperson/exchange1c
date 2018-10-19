@@ -7,23 +7,23 @@
  */
 declare(strict_types=1);
 
-
 namespace Tests\Models;
+
 use Bigperson\Exchange1C\Interfaces\GroupInterface;
 
 /**
- * Class GroupTestModel
+ * Class GroupTestModel.
  */
 class GroupTestModel implements GroupInterface
 {
-
     /**
      * Создание дерева групп
      * в параметр передаётся массив всех групп (import.xml > Классификатор > Группы)
      * $groups[0]->parent - родительская группа
-     * $groups[0]->children - дочерние группы
+     * $groups[0]->children - дочерние группы.
      *
      * @param \Zenwalker\CommerceML\Model\Group[] $groups
+     *
      * @return void
      */
     public static function createTree1c($groups)
@@ -42,7 +42,7 @@ class GroupTestModel implements GroupInterface
     }
 
     /**
-     * Возвращаем id сущности
+     * Возвращаем id сущности.
      *
      * @return int|string
      */

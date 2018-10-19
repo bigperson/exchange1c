@@ -23,6 +23,7 @@ class AfterUpdateProduct extends Event
 
     /**
      * BeforeUpdateProduct constructor.
+     *
      * @param ProductInterface $product
      */
     public function __construct(ProductInterface $product)

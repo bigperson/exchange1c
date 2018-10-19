@@ -9,8 +9,8 @@ declare(strict_types=1);
 
 namespace Bigperson\Exchange1C\Events;
 
-use Symfony\Component\EventDispatcher\Event;
 use Bigperson\Exchange1C\Interfaces\ProductInterface;
+use Symfony\Component\EventDispatcher\Event;
 
 class BeforeUpdateProduct extends Event
 {
@@ -23,6 +23,7 @@ class BeforeUpdateProduct extends Event
 
     /**
      * BeforeUpdateProduct constructor.
+     *
      * @param ProductInterface $product
      */
     public function __construct(ProductInterface $product)

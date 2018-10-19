@@ -7,7 +7,6 @@
  */
 declare(strict_types=1);
 
-
 namespace Bigperson\Exchange1C\Services;
 
 use Bigperson\Exchange1C\Config;
@@ -25,7 +24,7 @@ use Zenwalker\CommerceML\CommerceML;
 use Zenwalker\CommerceML\Model\Product;
 
 /**
- * Class SectionsService
+ * Class SectionsService.
  */
 class CategoryService
 {
@@ -56,10 +55,11 @@ class CategoryService
 
     /**
      * CategoryService constructor.
-     * @param Request $request
-     * @param Config $config
+     *
+     * @param Request                  $request
+     * @param Config                   $config
      * @param EventDispatcherInterface $dispatcher
-     * @param ModelBuilderInterface $modelBuilder
+     * @param ModelBuilderInterface    $modelBuilder
      */
     public function __construct(Request $request, Config $config, EventDispatcherInterface $dispatcher, ModelBuilderInterface $modelBuilder)
     {
@@ -70,7 +70,8 @@ class CategoryService
     }
 
     /**
-     * Базовый метод запуска импорта
+     * Базовый метод запуска импорта.
+     *
      * @throws Exchange1CException
      */
     public function import(): void
@@ -122,7 +123,7 @@ class CategoryService
     }
 
     /**
-     * @param ProductInterface $model
+     * @param ProductInterface                    $model
      * @param \Zenwalker\CommerceML\Model\Product $product
      */
     protected function parseProduct(ProductInterface $model, Product $product): void
@@ -140,7 +141,7 @@ class CategoryService
 
     /**
      * @param ProductInterface $model
-     * @param Product $product
+     * @param Product          $product
      */
     protected function parseGroups(ProductInterface $model, Product $product): void
     {
@@ -150,7 +151,7 @@ class CategoryService
 
     /**
      * @param ProductInterface $model
-     * @param Product $product
+     * @param Product          $product
      */
     protected function parseProperties(ProductInterface $model, Product $product): void
     {
@@ -161,7 +162,7 @@ class CategoryService
 
     /**
      * @param ProductInterface $model
-     * @param Product $product
+     * @param Product          $product
      */
     protected function parseRequisites(ProductInterface $model, Product $product): void
     {
@@ -173,7 +174,7 @@ class CategoryService
 
     /**
      * @param ProductInterface $model
-     * @param Product $product
+     * @param Product          $product
      */
     protected function parseImage(ProductInterface $model, Product $product)
     {

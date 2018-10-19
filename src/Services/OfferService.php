@@ -7,7 +7,6 @@
  */
 declare(strict_types=1);
 
-
 namespace Bigperson\Exchange1C\Services;
 
 use Bigperson\Exchange1C\Config;
@@ -25,7 +24,7 @@ use Zenwalker\CommerceML\CommerceML;
 use Zenwalker\CommerceML\Model\Offer;
 
 /**
- * Class OfferService
+ * Class OfferService.
  */
 class OfferService
 {
@@ -52,10 +51,11 @@ class OfferService
 
     /**
      * CategoryService constructor.
-     * @param Request $request
-     * @param Config $config
+     *
+     * @param Request                  $request
+     * @param Config                   $config
      * @param EventDispatcherInterface $dispatcher
-     * @param ModelBuilderInterface $modelBuilder
+     * @param ModelBuilderInterface    $modelBuilder
      */
     public function __construct(Request $request, Config $config, EventDispatcherInterface $dispatcher, ModelBuilderInterface $modelBuilder)
     {
@@ -108,7 +108,7 @@ class OfferService
     protected function findProductModelById(string $id): ?ProductInterface
     {
         /**
-         * @var $class ProductInterface
+         * @var ProductInterface
          */
         $class = $this->modelBuilder->getInterfaceClass($this->config, ProductInterface::class);
 
@@ -117,7 +117,7 @@ class OfferService
 
     /**
      * @param OfferInterface $model
-     * @param Offer $offer
+     * @param Offer          $offer
      */
     protected function parseProductOffer(OfferInterface $model, Offer $offer): void
     {
@@ -129,7 +129,7 @@ class OfferService
 
     /**
      * @param OfferInterface $model
-     * @param Offer $offer
+     * @param Offer          $offer
      */
     protected function parseSpecifications(OfferInterface $model, Offer $offer)
     {
@@ -140,7 +140,7 @@ class OfferService
 
     /**
      * @param OfferInterface $model
-     * @param Offer $offer
+     * @param Offer          $offer
      */
     protected function parsePrice(OfferInterface $model, Offer $offer)
     {
@@ -163,7 +163,7 @@ class OfferService
 
     /**
      * @param OfferInterface $model
-     * @param Offer $offer
+     * @param Offer          $offer
      */
     public function beforeUpdateOffer(OfferInterface $model, Offer $offer)
     {
@@ -173,7 +173,7 @@ class OfferService
 
     /**
      * @param OfferInterface $model
-     * @param Offer $offer
+     * @param Offer          $offer
      */
     public function afterUpdateOffer(OfferInterface $model, Offer $offer)
     {

@@ -9,11 +9,10 @@ declare(strict_types=1);
 
 namespace Bigperson\Exchange1C\Interfaces;
 
-
 interface DocumentInterface
 {
     /**
-     * Список заказов с сайта
+     * Список заказов с сайта.
      *
      *
      * @return DocumentInterface[]
@@ -21,21 +20,21 @@ interface DocumentInterface
     public static function findDocuments1c();
 
     /**
-     * Список предложений в этом заказе
+     * Список предложений в этом заказе.
      *
      * @return OfferInterface[]
      */
     public function getOffers1c();
 
     /**
-     * Получить список реквизитов в заказе
+     * Получить список реквизитов в заказе.
      *
      * @return mixed
      */
     public function getRequisites1c();
 
     /**
-     * Получаем контрагента у документа
+     * Получаем контрагента у документа.
      *
      * @return PartnerInterface
      */

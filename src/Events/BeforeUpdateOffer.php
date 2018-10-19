@@ -29,8 +29,9 @@ class BeforeUpdateOffer extends Event
 
     /**
      * BeforeUpdateOffer constructor.
+     *
      * @param OfferInterface $model
-     * @param Offer $offer
+     * @param Offer          $offer
      */
     public function __construct(OfferInterface $model, Offer $offer)
     {

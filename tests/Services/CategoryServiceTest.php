@@ -22,10 +22,10 @@ class CategoryServiceTest extends TestCase
     {
         $configValues = [
             'import_dir' => __DIR__.'/../xml',
-            'models'    => [
-                \Bigperson\Exchange1C\Interfaces\GroupInterface::class => \Tests\Models\GroupTestModel::class,
+            'models'     => [
+                \Bigperson\Exchange1C\Interfaces\GroupInterface::class   => \Tests\Models\GroupTestModel::class,
                 \Bigperson\Exchange1C\Interfaces\ProductInterface::class => \Tests\Models\ProductTestModel::class,
-                \Bigperson\Exchange1C\Interfaces\OfferInterface::class => \Tests\Models\OfferTestModel::class,
+                \Bigperson\Exchange1C\Interfaces\OfferInterface::class   => \Tests\Models\OfferTestModel::class,
             ],
         ];
 

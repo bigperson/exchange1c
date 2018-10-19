@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace Tests;
 
-
 use Bigperson\Exchange1C\Config;
 use Bigperson\Exchange1C\Exceptions\Exchange1CException;
 use Bigperson\Exchange1C\Interfaces\GroupInterface;
@@ -43,6 +42,6 @@ class ModelBuilderTest extends TestCase
         ];
         $config = new Config($values);
         $builder = new ModelBuilder();
-       $builder->getInterfaceClass($config, GroupInterface::class);
+        $builder->getInterfaceClass($config, GroupInterface::class);
     }
 }

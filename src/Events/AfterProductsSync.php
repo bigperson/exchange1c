@@ -22,6 +22,7 @@ class AfterProductsSync extends Event
 
     /**
      * AfterProductsSync constructor.
+     *
      * @param array $ids
      */
     public function __construct(array $ids = [])

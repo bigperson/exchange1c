@@ -24,7 +24,7 @@ class AuthServiceTest extends TestCase
     {
         $values = [
             'login'      => 'logintest',
-            'password'   => 'passwordtest'
+            'password'   => 'passwordtest',
         ];
         $config = new Config($values);
         $request = $this->createMock(Request::class);
@@ -47,7 +47,7 @@ class AuthServiceTest extends TestCase
     {
         $values = [
             'login'      => 'logintest',
-            'password'   => 'passwordtest'
+            'password'   => 'passwordtest',
         ];
         $config = new Config($values);
         $request = $this->createMock(Request::class);
@@ -70,7 +70,7 @@ class AuthServiceTest extends TestCase
     {
         $values = [
             'login'      => 'logintest',
-            'password'   => 'passwordtest'
+            'password'   => 'passwordtest',
         ];
         $config = new Config($values);
         $request = $this->createMock(Request::class);
@@ -93,7 +93,7 @@ class AuthServiceTest extends TestCase
     {
         $values = [
             'login'      => 'logintest',
-            'password'   => 'passwordtest'
+            'password'   => 'passwordtest',
         ];
         $config = new Config($values);
         $request = $this->createMock(Request::class);
@@ -112,7 +112,7 @@ class AuthServiceTest extends TestCase
         $this->expectException(Exchange1CException::class);
         $values = [
             'login'      => 'logintest',
-            'password'   => 'passwordtest'
+            'password'   => 'passwordtest',
         ];
         $config = new Config($values);
         $request = $this->createMock(Request::class);
