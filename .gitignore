@@ -1,0 +1,10 @@
+# Development libraries
+
+.idea/
+vendor/
+composer.phar
+
+# OS Dependencies
+
+.DS_Store
+Thumbs.db
