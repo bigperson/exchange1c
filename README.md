@@ -20,6 +20,7 @@
 # Зависимости
 * php ^7.1
 * carono/commerceml
+* symfony/http-foundation ^4.1
 * symfony/event-dispatcher ^4.1
 
 # Установка
