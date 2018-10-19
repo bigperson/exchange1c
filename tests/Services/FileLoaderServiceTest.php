@@ -19,7 +19,7 @@ class FileLoaderServiceTest extends TestCase
     public function testLoad(): void
     {
         $configValues = [
-            'import_dir' => __DIR__ . DIRECTORY_SEPARATOR . '1c_exchangetest',
+            'import_dir' => __DIR__.DIRECTORY_SEPARATOR.'1c_exchangetest',
         ];
         $config = new Config($configValues);
 
@@ -38,8 +38,8 @@ class FileLoaderServiceTest extends TestCase
     public function testLoadZip(): void
     {
         $configValues = [
-            'import_dir' => __DIR__ . DIRECTORY_SEPARATOR . '1c_exchangetest',
-            'use_zip' => true,
+            'import_dir' => __DIR__.DIRECTORY_SEPARATOR.'1c_exchangetest',
+            'use_zip'    => true,
         ];
         $config = new Config($configValues);
 
@@ -58,7 +58,7 @@ class FileLoaderServiceTest extends TestCase
     public function testClearImportDirectory(): void
     {
         $configValues = [
-            'import_dir' => __DIR__ . DIRECTORY_SEPARATOR . '1c_exchangetest',
+            'import_dir' => __DIR__.DIRECTORY_SEPARATOR.'1c_exchangetest',
         ];
         $config = new Config($configValues);
         $request = new Request();
@@ -84,11 +84,12 @@ class FileLoaderServiceTest extends TestCase
 
     /**
      * @param $dir
+     *
      * @return bool
      */
     private function recurseRmdir($dir): bool
     {
-        $files = array_diff(scandir($dir), array('.', '..'));
+        $files = array_diff(scandir($dir), ['.', '..']);
 
         foreach ($files as $file) {
             (is_dir("$dir/$file")) ? $this->recurseRmdir("$dir/$file") : unlink("$dir/$file");

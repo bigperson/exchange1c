@@ -7,13 +7,13 @@
  */
 declare(strict_types=1);
 
-
 namespace Bigperson\Exchange1C\Services;
+
 use Bigperson\Exchange1C\Config;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Class FileLoaderService
+ * Class FileLoaderService.
  */
 class FileLoaderService
 {
@@ -28,8 +28,9 @@ class FileLoaderService
 
     /**
      * FileLoaderService constructor.
+     *
      * @param Request $request
-     * @param Config $config
+     * @param Config  $config
      */
     public function __construct(Request $request, Config $config)
     {
@@ -44,7 +45,7 @@ class FileLoaderService
     {
         $filename = basename($this->request->get('filename'));
         $filePath = $this->config->getFullPath($filename);
-        if ($filename === "orders.xml") {
+        if ($filename === 'orders.xml') {
             throw new \LogicException('This method is not released');
         } else {
             $directory = dirname($filePath);
@@ -55,7 +56,7 @@ class FileLoaderService
             fwrite($f, file_get_contents('php://input'));
             fclose($f);
             if ($this->config->isUseZip()) {
-                $zip = new \ZipArchive;
+                $zip = new \ZipArchive();
                 $zip->open($filePath);
                 $zip->extractTo($this->config->getImportDir());
                 $zip->close();
@@ -67,11 +68,11 @@ class FileLoaderService
     }
 
     /**
-     * Delete all files from tmp directory
+     * Delete all files from tmp directory.
      */
     public function clearImportDirectory(): void
     {
-        $tmp_files = glob($this->config->getImportDir() .DIRECTORY_SEPARATOR. '*.*');
+        $tmp_files = glob($this->config->getImportDir().DIRECTORY_SEPARATOR.'*.*');
         if (is_array($tmp_files)) {
             foreach ($tmp_files as $v) {
                 unlink($v);

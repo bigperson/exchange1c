@@ -11,5 +11,4 @@ namespace Bigperson\Exchange1C\Interfaces;
 
 interface WarehouseInterface extends IdentifierInterface
 {
-
 }

@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace Bigperson\Exchange1C\Interfaces;
 
-
 interface PartnerInterface extends ExportFieldsInterface
 {
 }
