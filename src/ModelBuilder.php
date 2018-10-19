@@ -7,30 +7,32 @@
  */
 declare(strict_types=1);
 
-
 namespace Bigperson\Exchange1C;
 
 use Bigperson\Exchange1C\Exceptions\Exchange1CException;
 use Bigperson\Exchange1C\Interfaces\ModelBuilderInterface;
 
 /**
- * Class ModelBuilder
+ * Class ModelBuilder.
  */
 class ModelBuilder implements ModelBuilderInterface
 {
     /**
-     * Если модель в конфиге не установлена, то импорт не будет произведен
+     * Если модель в конфиге не установлена, то импорт не будет произведен.
+     *
      * @param Config $config
      * @param string $interface
-     * @return null|mixed
+     *
      * @throws Exchange1CException
+     *
+     * @return null|mixed
      */
     public function getInterfaceClass(Config $config, string $interface)
     {
         $model = $config->getModelClass($interface);
         if ($model) {
-            $modelInstance = new $model;
-            if($modelInstance instanceof $interface) {
+            $modelInstance = new $model();
+            if ($modelInstance instanceof $interface) {
                 return $modelInstance;
             }
         }

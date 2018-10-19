@@ -7,14 +7,13 @@
  */
 declare(strict_types=1);
 
-
 namespace Bigperson\Exchange1C\Services;
 
 use Bigperson\Exchange1C\Config;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Class AbstractService
+ * Class AbstractService.
  */
 abstract class AbstractService
 {
@@ -50,12 +49,13 @@ abstract class AbstractService
 
     /**
      * AbstractService constructor.
-     * @param Request $request
-     * @param Config $config
-     * @param AuthService $authService
+     *
+     * @param Request           $request
+     * @param Config            $config
+     * @param AuthService       $authService
      * @param FileLoaderService $loaderService
-     * @param CategoryService $categoryService
-     * @param OfferService $offerService
+     * @param CategoryService   $categoryService
+     * @param OfferService      $offerService
      */
     public function __construct(
         Request $request,
@@ -64,8 +64,7 @@ abstract class AbstractService
         FileLoaderService $loaderService,
         CategoryService $categoryService,
         OfferService $offerService
-    )
-    {
+    ) {
         $this->request = $request;
         $this->config = $config;
         $this->authService = $authService;

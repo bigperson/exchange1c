@@ -7,15 +7,15 @@
  */
 declare(strict_types=1);
 
-
 namespace Tests\Models;
+
 use Bigperson\Exchange1C\Interfaces\GroupInterface;
 use Bigperson\Exchange1C\Interfaces\OfferInterface;
 use Bigperson\Exchange1C\Interfaces\ProductInterface;
 use Zenwalker\CommerceML\Model\PropertyCollection;
 
 /**
- * Class ProductTestModel
+ * Class ProductTestModel.
  */
 class ProductTestModel implements ProductInterface
 {
@@ -30,7 +30,8 @@ class ProductTestModel implements ProductInterface
     }
 
     /**
-     * Получение уникального идентификатора продукта в рамках БД сайта
+     * Получение уникального идентификатора продукта в рамках БД сайта.
+     *
      * @return int|string
      */
     public function getPrimaryKey()
@@ -41,10 +42,11 @@ class ProductTestModel implements ProductInterface
     /**
      * Если по каким то причинам файлы import.xml или offers.xml были модифицированы и какие то данные
      * не попадают в парсер, в самом конце вызывается данный метод, в $product и $cml можно получить все
-     * возможные данные для ручного парсинга
+     * возможные данные для ручного парсинга.
      *
-     * @param \Zenwalker\CommerceML\CommerceML $cml
+     * @param \Zenwalker\CommerceML\CommerceML    $cml
      * @param \Zenwalker\CommerceML\Model\Product $product
+     *
      * @return void
      */
     public function setRaw1cData($cml, $product)
@@ -55,10 +57,11 @@ class ProductTestModel implements ProductInterface
     /**
      * Установка реквизитов, (import.xml > Каталог > Товары > Товар > ЗначенияРеквизитов > ЗначениеРеквизита)
      * $name - Наименование
-     * $value - Значение
+     * $value - Значение.
      *
      * @param string $name
      * @param string $value
+     *
      * @return void
      */
     public function setRequisite1c($name, $value)
@@ -67,9 +70,10 @@ class ProductTestModel implements ProductInterface
     }
 
     /**
-     * Предпологается, что дерево групп у Вас уже создано (\carono\exchange1c\interfaces\GroupInterface::createTree1c)
+     * Предпологается, что дерево групп у Вас уже создано (\carono\exchange1c\interfaces\GroupInterface::createTree1c).
      *
      * @param \Zenwalker\CommerceML\Model\Group $group
+     *
      * @return mixed
      */
     public function setGroup1c($group)
@@ -79,7 +83,7 @@ class ProductTestModel implements ProductInterface
 
     /**
      * import.xml > Классификатор > Свойства > Свойство
-     * $property - Свойство товара
+     * $property - Свойство товара.
      *
      * import.xml > Классификатор > Свойства > Свойство > Значение
      * $property->value - Разыменованное значение (string)
@@ -88,6 +92,7 @@ class ProductTestModel implements ProductInterface
      * $property->getValueModel() - Данные по значению, Ид значения, и т.д
      *
      * @param \Zenwalker\CommerceML\Model\Property $property
+     *
      * @return void
      */
     public function setProperty1c($property)
@@ -98,6 +103,7 @@ class ProductTestModel implements ProductInterface
     /**
      * @param string $path
      * @param string $caption
+     *
      * @return void
      */
     public function addImage1c($path, $caption)
@@ -115,12 +121,13 @@ class ProductTestModel implements ProductInterface
 
     /**
      * Создание всех свойств продутка
-     * import.xml > Классификатор > Свойства
+     * import.xml > Классификатор > Свойства.
      *
      * $properties[]->availableValues - список доступных значений, для этого свойства
      * import.xml > Классификатор > Свойства > Свойство > ВариантыЗначений > Справочник
      *
      * @param PropertyCollection $properties
+     *
      * @return mixed
      */
     public static function createProperties1c($properties)
@@ -130,6 +137,7 @@ class ProductTestModel implements ProductInterface
 
     /**
      * @param \Zenwalker\CommerceML\Model\Offer $offer
+     *
      * @return OfferInterface
      */
     public function getOffer1c($offer)
@@ -139,6 +147,7 @@ class ProductTestModel implements ProductInterface
 
     /**
      * @param \Zenwalker\CommerceML\Model\Product $product
+     *
      * @return self
      */
     public static function createModel1c($product)
@@ -148,6 +157,7 @@ class ProductTestModel implements ProductInterface
 
     /**
      * @param string $id
+     *
      * @return ProductInterface|null
      */
     public static function findProductBy1c(string $id): ?ProductInterface

@@ -10,7 +10,7 @@ declare(strict_types=1);
 namespace Bigperson\Exchange1C;
 
 /**
- * Class Config
+ * Class Config.
  */
 class Config
 {
@@ -43,13 +43,14 @@ class Config
      * @var array
      */
     private $models = [
-        \Bigperson\Exchange1C\Interfaces\GroupInterface::class => null,
+        \Bigperson\Exchange1C\Interfaces\GroupInterface::class   => null,
         \Bigperson\Exchange1C\Interfaces\ProductInterface::class => null,
-        \Bigperson\Exchange1C\Interfaces\OfferInterface::class => null,
+        \Bigperson\Exchange1C\Interfaces\OfferInterface::class   => null,
     ];
 
     /**
      * Config constructor.
+     *
      * @param array $config
      */
     public function __construct(array $config = [])
@@ -58,7 +59,7 @@ class Config
     }
 
     /**
-     * Overrides default configuration settings
+     * Overrides default configuration settings.
      *
      * @param array $config
      */
@@ -122,6 +123,7 @@ class Config
 
     /**
      * @param string $modelName
+     *
      * @return null|string
      */
     public function getModelClass(string $modelName): ?string
@@ -135,6 +137,7 @@ class Config
 
     /**
      * @param string $filename
+     *
      * @return string
      */
     public function getFullPath(string $filename): string
@@ -143,9 +146,11 @@ class Config
     }
 
     /**
-     * Translates a string with underscores into camel case (e.g. first_name -&gt; firstName)
-     * @param    string $str String in underscore format
-     * @return   string                              $str translated into camel caps
+     * Translates a string with underscores into camel case (e.g. first_name -&gt; firstName).
+     *
+     * @param string $str String in underscore format
+     *
+     * @return string $str translated into camel caps
      */
     private function toCamelCase($str): string
     {

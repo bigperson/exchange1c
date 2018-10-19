@@ -7,20 +7,21 @@
  */
 declare(strict_types=1);
 
-
 namespace Bigperson\Exchange1C\Interfaces;
 
 use Bigperson\Exchange1C\Config;
 
 /**
- * Class ModelBuilderInterface
+ * Class ModelBuilderInterface.
  */
 interface ModelBuilderInterface
 {
     /**
-     * Если модель в конфиге не установлена, то импорт не будет произведен
+     * Если модель в конфиге не установлена, то импорт не будет произведен.
+     *
      * @param Config $config
      * @param string $interface
+     *
      * @return null|mixed
      */
     public function getInterfaceClass(Config $config, string $interface);

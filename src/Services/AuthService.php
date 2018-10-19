@@ -7,7 +7,6 @@
  */
 declare(strict_types=1);
 
-
 namespace Bigperson\Exchange1C\Services;
 
 use Bigperson\Exchange1C\Config;
@@ -17,7 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 /**
- * Class AuthService
+ * Class AuthService.
  */
 class AuthService
 {
@@ -39,8 +38,9 @@ class AuthService
 
     /**
      * AuthService constructor.
+     *
      * @param Request $request
-     * @param Config $config
+     * @param Config  $config
      */
     public function __construct(Request $request, Config $config)
     {
@@ -50,8 +50,9 @@ class AuthService
     }
 
     /**
-     * @return string
      * @throws Exchange1CException
+     *
+     * @return string
      */
     public function checkAuth()
     {
@@ -62,12 +63,12 @@ class AuthService
             $this->session->save();
             $response = "success\n";
             $response .= "laravel_session\n";
-            $response .=  $this->session->getId() . "\n";
-            $response .= "timestamp=" . time();
+            $response .= $this->session->getId()."\n";
+            $response .= 'timestamp='.time();
             if ($this->session instanceof SessionInterface) {
-                $this->session->set(self::SESSION_KEY . '_auth', $this->config->getLogin());
+                $this->session->set(self::SESSION_KEY.'_auth', $this->config->getLogin());
             } elseif ($this->session instanceof Session) {
-                $this->session->put(self::SESSION_KEY . '_auth', $this->config->getLogin());
+                $this->session->put(self::SESSION_KEY.'_auth', $this->config->getLogin());
             } else {
                 throw new Exchange1CException(sprintf('Session is not insatiable interface %s or %s', SessionInterface::class, Session::class));
             }
@@ -78,14 +79,13 @@ class AuthService
         return $response;
     }
 
-
     /**
      * @throws Exchange1CException
      */
     public function auth(): void
     {
         $login = $this->config->getLogin();
-        $user = $this->session->get(self::SESSION_KEY . '_auth', null);
+        $user = $this->session->get(self::SESSION_KEY.'_auth', null);
 
         if (!$user || $user != $login) {
             throw new Exchange1CException('auth error');

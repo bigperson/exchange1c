@@ -7,18 +7,19 @@
  */
 declare(strict_types=1);
 
-
 namespace Tests\Models;
+
 use Bigperson\Exchange1C\Interfaces\GroupInterface;
 use Bigperson\Exchange1C\Interfaces\OfferInterface;
 
 /**
- * Class OfferTestModel
+ * Class OfferTestModel.
  */
 class OfferTestModel implements OfferInterface
 {
     /**
      * @param mixed|null $context
+     *
      * @return array
      */
     public function getExportFields1c($context = null)
@@ -37,7 +38,7 @@ class OfferTestModel implements OfferInterface
     }
 
     /**
-     * Возвращаем id сущности
+     * Возвращаем id сущности.
      *
      * @return int|string
      */
@@ -55,13 +56,14 @@ class OfferTestModel implements OfferInterface
     }
 
     /**
-     * offers.xml > ПакетПредложений > Предложения > Предложение > Цены
+     * offers.xml > ПакетПредложений > Предложения > Предложение > Цены.
      *
      * Цена товара,
      * К $price можно обратиться как к массиву, чтобы получить список цен (Цены > Цена)
      * $price->type - тип цены (offers.xml > ПакетПредложений > ТипыЦен > ТипЦены)
      *
      * @param \Zenwalker\CommerceML\Model\Price $price
+     *
      * @return void
      */
     public function setPrice1c($price)
@@ -71,6 +73,7 @@ class OfferTestModel implements OfferInterface
 
     /**
      * @param $types
+     *
      * @return void
      */
     public static function createPriceTypes1c($types)
@@ -79,13 +82,14 @@ class OfferTestModel implements OfferInterface
     }
 
     /**
-     * offers.xml > ПакетПредложений > Предложения > Предложение > ХарактеристикиТовара > ХарактеристикаТовара
+     * offers.xml > ПакетПредложений > Предложения > Предложение > ХарактеристикиТовара > ХарактеристикаТовара.
      *
      * Характеристики товара
      * $name - Наименование
      * $value - Значение
      *
      * @param \Zenwalker\CommerceML\Model\Simple $specification
+     *
      * @return void
      */
     public function setSpecification1c($specification)

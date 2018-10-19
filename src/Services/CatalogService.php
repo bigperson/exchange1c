@@ -13,7 +13,7 @@ namespace Bigperson\Exchange1C\Services;
  * Class Catalog
  * Class for implementing CommerceML protocol
  * http://v8.1c.ru/edi/edi_stnd/90/92.htm
- * http://v8.1c.ru/edi/edi_stnd/131/
+ * http://v8.1c.ru/edi/edi_stnd/131/.
  */
 class CatalogService extends AbstractService
 {
@@ -26,6 +26,7 @@ class CatalogService extends AbstractService
      * - имя Cookie;
      * - значение Cookie.
      * Примечание. Все последующие запросы к системе управления сайтом со стороны "1С:Предприятия" содержат в заголовке запроса имя и значение Cookie.
+     *
      * @return string
      */
     public function checkauth(): string
@@ -43,21 +44,23 @@ class CatalogService extends AbstractService
      * или zip=no - в этом случае на следующем шаге файлы не упаковываются и передаются каждый по отдельности.
      * 2. file_limit=<число>, где <число> - максимально допустимый размер файла в байтах для передачи за один запрос.
      * Если системе "1С:Предприятие" понадобится передать файл большего размера, его следует разделить на фрагменты.
+     *
      * @return string
      */
     public function init(): string
     {
         $this->authService->auth();
         $this->loaderService->clearImportDirectory();
-        $zipEnable = function_exists("zip_open") && $this->config->isUseZip();
-        $response = "zip=" . ($zipEnable ? "yes" : "no") . "\n";
-        $response .= "file_limit=" . $this->config->getFilePart();
+        $zipEnable = function_exists('zip_open') && $this->config->isUseZip();
+        $response = 'zip='.($zipEnable ? 'yes' : 'no')."\n";
+        $response .= 'file_limit='.$this->config->getFilePart();
 
         return $response;
     }
 
     /**
      * Загрузка и сохранение файлов на сервер
+     *
      * @return string
      */
     public function file(): string
@@ -79,6 +82,7 @@ class CatalogService extends AbstractService
      * сайтом будет содержаться слово "failure", а в следующих строках - описание ошибки, произошедшей в процессе
      * обработки запроса.
      * Если произошла необрабатываемая ошибка уровня ядра продукта или sql-запроса, то будет возвращен html-код.
+     *
      * @return string
      */
     public function import(): string
@@ -100,8 +104,8 @@ class CatalogService extends AbstractService
 
         $response = "success\n";
         $response .= "laravel_session\n";
-        $response .= $this->request->getSession()->getId() . "\n";
-        $response .= "timestamp=" . time();
+        $response .= $this->request->getSession()->getId()."\n";
+        $response .= 'timestamp='.time();
 
         return $response;
     }

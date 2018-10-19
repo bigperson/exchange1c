@@ -10,9 +10,8 @@ declare(strict_types=1);
 namespace Bigperson\Exchange1C\Exceptions;
 
 /**
- * Class Exchange1CException
+ * Class Exchange1CException.
  */
 class Exchange1CException extends \Exception
 {
-
 }

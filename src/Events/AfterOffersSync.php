@@ -22,6 +22,7 @@ class AfterOffersSync extends Event
 
     /**
      * AfterOffersSync constructor.
+     *
      * @param array $ids
      */
     public function __construct(array $ids = [])

@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace Tests;
 
-
 use Bigperson\Exchange1C\Config;
 use Bigperson\Exchange1C\Interfaces\GroupInterface;
 use Bigperson\Exchange1C\Interfaces\OfferInterface;
@@ -25,10 +24,10 @@ class ConfigTest extends TestCase
             'password'   => 'passwordtest',
             'use_zip'    => true,
             'file_part'  => 500,
-            'models'    => [
-                GroupInterface::class => 'CategoryTestClass',
+            'models'     => [
+                GroupInterface::class   => 'CategoryTestClass',
                 ProductInterface::class => 'ProductTestClass',
-                OfferInterface::class => 'OfferTestClass',
+                OfferInterface::class   => 'OfferTestClass',
             ],
         ];
         $config = new Config($values);
