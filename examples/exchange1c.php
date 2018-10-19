@@ -7,6 +7,8 @@
  */
 declare(strict_types=1);
 
+require_once './../vendor/autoload.php';
+
 $configValues = [
     'import_dir'    => '1c_exchange',
     'login'    => 'admin',
