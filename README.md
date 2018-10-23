@@ -1,5 +1,5 @@
 # PHP exchange1c - обмен 1С предприятие с сайтом на php
-![Packagist](https://img.shields.io/packagist/l/bigperson/exchange1c.svg?style=flat-square)
+[![Packagist](https://img.shields.io/packagist/l/bigperson/exchange1c.svg?style=flat-square)](LICENSE)
 [![Packagist](https://img.shields.io/packagist/dt/bigperson/exchange1c.svg?style=flat-square)](https://packagist.org/packages/bigperson/exchange1c)
 [![Packagist](https://img.shields.io/packagist/v/bigperson/exchange1c.svg?style=flat-square)](https://packagist.org/packages/bigperson/exchange1c)
 [![Travis (.org)](https://img.shields.io/travis/bigperson/exchange1c.svg?style=flat-square)](https://travis-ci.org/bigperson/exchange1c)
