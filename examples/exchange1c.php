@@ -23,7 +23,8 @@ $configValues = [
 ];
 $config = new \Bigperson\Exchange1C\Config($configValues);
 $request = \Symfony\Component\HttpFoundation\Request::createFromGlobals();
-$dispatcher = new \Symfony\Component\EventDispatcher\EventDispatcher();
+$symfonyDispatcher = new \Symfony\Component\EventDispatcher\EventDispatcher();
+$dispatcher = new \Bigperson\Exchange1C\SymfonyEventDispatcher($symfonyDispatcher);
 $modelBuilder = new \Bigperson\Exchange1C\ModelBuilder();
 $loaderService = new \Bigperson\Exchange1C\Services\FileLoaderService($request, $config);
 $authService = new \Bigperson\Exchange1C\Services\AuthService($request, $config);

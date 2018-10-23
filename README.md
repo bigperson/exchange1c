@@ -21,7 +21,6 @@
 * php ^7.1
 * carono/commerceml
 * symfony/http-foundation ^4.1
-* symfony/event-dispatcher ^4.1
 
 # Установка
 `composer require bigperson/exchange1c`
@@ -47,7 +46,8 @@ $configValues = [
 ];
 $config = new \Bigperson\Exchange1C\Config($configValues);
 $request = \Symfony\Component\HttpFoundation\Request::createFromGlobals();
-$dispatcher = new \Symfony\Component\EventDispatcher\EventDispatcher();
+$symfonyDispatcher = new \Symfony\Component\EventDispatcher\EventDispatcher();
+$dispatcher = new \Bigperson\Exchange1C\SymfonyEventDispatcher($symfonyDispatcher);
 $modelBuilder = new \Bigperson\Exchange1C\ModelBuilder();
 // Создаем необходимые сервисы
 $loaderService = new \Bigperson\Exchange1C\Services\FileLoaderService($request, $config);

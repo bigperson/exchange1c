@@ -10,10 +10,9 @@ declare(strict_types=1);
 namespace Bigperson\Exchange1C\Events;
 
 use Bigperson\Exchange1C\Interfaces\OfferInterface;
-use Symfony\Component\EventDispatcher\Event;
 use Zenwalker\CommerceML\Model\Offer;
 
-class AfterUpdateOffer extends Event
+class AfterUpdateOffer extends AbstractEventInterface
 {
     const NAME = 'after.update.offer';
 

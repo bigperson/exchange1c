@@ -9,9 +9,7 @@ declare(strict_types=1);
 
 namespace Bigperson\Exchange1C\Events;
 
-use Symfony\Component\EventDispatcher\Event;
-
-class AfterOffersSync extends Event
+class AfterOffersSync extends AbstractEventInterface
 {
     const NAME = 'after.offers.sync';
 

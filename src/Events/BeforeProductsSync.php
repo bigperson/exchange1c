@@ -9,9 +9,7 @@ declare(strict_types=1);
 
 namespace Bigperson\Exchange1C\Events;
 
-use Symfony\Component\EventDispatcher\Event;
-
-class BeforeProductsSync extends Event
+class BeforeProductsSync extends AbstractEventInterface
 {
     const NAME = 'before.products.sync';
 }

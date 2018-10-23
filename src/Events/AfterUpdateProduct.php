@@ -10,9 +10,8 @@ declare(strict_types=1);
 namespace Bigperson\Exchange1C\Events;
 
 use Bigperson\Exchange1C\Interfaces\ProductInterface;
-use Symfony\Component\EventDispatcher\Event;
 
-class AfterUpdateProduct extends Event
+class AfterUpdateProduct extends AbstractEventInterface
 {
     const NAME = 'after.update.product';
 

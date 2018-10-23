@@ -15,10 +15,10 @@ use Bigperson\Exchange1C\Events\AfterUpdateProduct;
 use Bigperson\Exchange1C\Events\BeforeProductsSync;
 use Bigperson\Exchange1C\Events\BeforeUpdateProduct;
 use Bigperson\Exchange1C\Exceptions\Exchange1CException;
+use Bigperson\Exchange1C\Interfaces\EventDispatcherInterface;
 use Bigperson\Exchange1C\Interfaces\GroupInterface;
 use Bigperson\Exchange1C\Interfaces\ModelBuilderInterface;
 use Bigperson\Exchange1C\Interfaces\ProductInterface;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Zenwalker\CommerceML\CommerceML;
 use Zenwalker\CommerceML\Model\Product;
@@ -190,13 +190,13 @@ class CategoryService
     protected function beforeProductsSync(): void
     {
         $event = new BeforeProductsSync();
-        $this->dispatcher->dispatch($event::NAME, $event);
+        $this->dispatcher->dispatch($event);
     }
 
     protected function afterProductsSync(): void
     {
         $event = new AfterProductsSync($this->_ids);
-        $this->dispatcher->dispatch($event::NAME, $event);
+        $this->dispatcher->dispatch($event);
     }
 
     /**
@@ -205,7 +205,7 @@ class CategoryService
     protected function beforeUpdateProduct(ProductInterface $model): void
     {
         $event = new BeforeUpdateProduct($model);
-        $this->dispatcher->dispatch($event::NAME, $event);
+        $this->dispatcher->dispatch($event);
     }
 
     /**
@@ -214,6 +214,6 @@ class CategoryService
     protected function afterUpdateProduct(ProductInterface $model): void
     {
         $event = new AfterUpdateProduct($model);
-        $this->dispatcher->dispatch($event::NAME, $event);
+        $this->dispatcher->dispatch($event);
     }
 }

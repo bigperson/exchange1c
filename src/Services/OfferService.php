@@ -15,10 +15,10 @@ use Bigperson\Exchange1C\Events\AfterUpdateOffer;
 use Bigperson\Exchange1C\Events\BeforeOffersSync;
 use Bigperson\Exchange1C\Events\BeforeUpdateOffer;
 use Bigperson\Exchange1C\Exceptions\Exchange1CException;
+use Bigperson\Exchange1C\Interfaces\EventDispatcherInterface;
 use Bigperson\Exchange1C\Interfaces\ModelBuilderInterface;
 use Bigperson\Exchange1C\Interfaces\OfferInterface;
 use Bigperson\Exchange1C\Interfaces\ProductInterface;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Zenwalker\CommerceML\CommerceML;
 use Zenwalker\CommerceML\Model\Offer;
@@ -152,13 +152,13 @@ class OfferService
     public function beforeOfferSync(): void
     {
         $event = new BeforeOffersSync();
-        $this->dispatcher->dispatch($event::NAME, $event);
+        $this->dispatcher->dispatch($event);
     }
 
     public function afterOfferSync(): void
     {
         $event = new AfterOffersSync($this->_ids);
-        $this->dispatcher->dispatch($event::NAME, $event);
+        $this->dispatcher->dispatch($event);
     }
 
     /**
@@ -168,7 +168,7 @@ class OfferService
     public function beforeUpdateOffer(OfferInterface $model, Offer $offer)
     {
         $event = new BeforeUpdateOffer($model, $offer);
-        $this->dispatcher->dispatch($event::NAME, $event);
+        $this->dispatcher->dispatch($event);
     }
 
     /**
@@ -178,6 +178,6 @@ class OfferService
     public function afterUpdateOffer(OfferInterface $model, Offer $offer)
     {
         $event = new AfterUpdateOffer($model, $offer);
-        $this->dispatcher->dispatch($event::NAME, $event);
+        $this->dispatcher->dispatch($event);
     }
 }
