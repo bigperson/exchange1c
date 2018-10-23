@@ -1,5 +1,5 @@
 # PHP exchange1c - обмен 1С предприятие с сайтом на php
-![Packagist](https://img.shields.io/packagist/l/doctrine/orm.svg?style=flat-square)
+![Packagist](https://img.shields.io/packagist/l/bigperson/exchange1c.svg?style=flat-square)
 [![Packagist](https://img.shields.io/packagist/dt/bigperson/exchange1c.svg?style=flat-square)](https://packagist.org/packages/bigperson/exchange1c)
 [![Packagist](https://img.shields.io/packagist/v/bigperson/exchange1c.svg?style=flat-square)](https://packagist.org/packages/bigperson/exchange1c)
 [![Travis (.org)](https://img.shields.io/travis/bigperson/exchange1c.svg?style=flat-square)](https://travis-ci.org/bigperson/exchange1c)
@@ -27,6 +27,8 @@
 
 # Использование
 Для использования библиотеки вам неободимо определить массив конфигов и реализовать интерфейсы в ваших моделях.
+В примере используется адаптер для symfony/event-dispatcher - https://github.com/bigperson/exchange1c-symfony-bridge
+Также вы можете использовать пакет-адаптер для интеграции с Laravel https://github.com/bigperson/laravel-exchange1c
 
 ```php
 require_once './../vendor/autoload.php'; //Подулючаем автолоад
@@ -84,7 +86,11 @@ try {
 ```
 
 Более подробную информацию по интерфейсам и их реализациям можно почитаь в документации https://github.com/carono/yii2-1c-exchange
-
 Документация будет добалена позже.
+
+# Лицензия
+Данный пакет является открытым кодом под лицензией [MIT license](LICENSE).
+
+
 
 
