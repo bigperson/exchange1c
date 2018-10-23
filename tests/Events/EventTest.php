@@ -7,14 +7,13 @@
  */
 declare(strict_types=1);
 
-
 namespace Tests\Events;
 
 use Bigperson\Exchange1C\Events\BeforeOffersSync;
 use Tests\TestCase;
 
 /**
- * Class EventTest
+ * Class EventTest.
  */
 class EventTest extends TestCase
 {
@@ -22,6 +21,5 @@ class EventTest extends TestCase
     {
         $event = new  BeforeOffersSync();
         $this->assertTrue(is_string($event->getName()));
-
     }
 }
