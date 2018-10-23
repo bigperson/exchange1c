@@ -9,12 +9,12 @@ declare(strict_types=1);
 
 namespace Tests\Services;
 
-use Tests\TestCase;
 use Bigperson\Exchange1C\Config;
-use Bigperson\Exchange1C\ModelBuilder;
-use Symfony\Component\HttpFoundation\Request;
-use Bigperson\Exchange1C\Services\CategoryService;
 use Bigperson\Exchange1C\Interfaces\EventDispatcherInterface;
+use Bigperson\Exchange1C\ModelBuilder;
+use Bigperson\Exchange1C\Services\CategoryService;
+use Symfony\Component\HttpFoundation\Request;
+use Tests\TestCase;
 
 class CategoryServiceTest extends TestCase
 {
