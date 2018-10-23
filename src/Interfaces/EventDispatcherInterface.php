@@ -7,12 +7,10 @@
  */
 declare(strict_types=1);
 
-
 namespace Bigperson\Exchange1C\Interfaces;
 
 /**
- * Interface EventDispatcherInterface
- * @package Bigperson\Exchange1C\Interfaces
+ * Interface EventDispatcherInterface.
  */
 interface EventDispatcherInterface
 {

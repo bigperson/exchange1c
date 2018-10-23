@@ -7,11 +7,10 @@
  */
 declare(strict_types=1);
 
-
 namespace Bigperson\Exchange1C\Events;
 
 /**
- * Class AbstractEventInterface
+ * Class AbstractEventInterface.
  */
 abstract class AbstractEventInterface implements \Bigperson\Exchange1C\Interfaces\EventInterface
 {
