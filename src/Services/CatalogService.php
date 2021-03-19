@@ -7,7 +7,7 @@
  */
 declare(strict_types=1);
 
-namespace Bigperson\Exchange1C\Services;
+namespace Mikkimike\Exchange1C\Services;
 
 /**
  * Class Catalog

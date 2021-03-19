@@ -7,7 +7,7 @@
  */
 declare(strict_types=1);
 
-namespace Bigperson\Exchange1C\Interfaces;
+namespace Mikkimike\Exchange1C\Interfaces;
 
 interface GroupInterface extends IdentifierInterface
 {

@@ -7,10 +7,10 @@
  */
 declare(strict_types=1);
 
-namespace Bigperson\Exchange1C\Services;
+namespace Mikkimike\Exchange1C\Services;
 
-use Bigperson\Exchange1C\Config;
-use Bigperson\Exchange1C\Exceptions\Exchange1CException;
+use Mikkimike\Exchange1C\Config;
+use Mikkimike\Exchange1C\Exceptions\Exchange1CException;
 use Illuminate\Contracts\Session\Session;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;

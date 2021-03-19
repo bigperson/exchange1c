@@ -9,10 +9,10 @@ declare(strict_types=1);
 
 namespace Tests;
 
-use Bigperson\Exchange1C\Config;
-use Bigperson\Exchange1C\Interfaces\GroupInterface;
-use Bigperson\Exchange1C\Interfaces\OfferInterface;
-use Bigperson\Exchange1C\Interfaces\ProductInterface;
+use Mikkimike\Exchange1C\Config;
+use Mikkimike\Exchange1C\Interfaces\GroupInterface;
+use Mikkimike\Exchange1C\Interfaces\OfferInterface;
+use Mikkimike\Exchange1C\Interfaces\ProductInterface;
 
 class ConfigTest extends TestCase
 {

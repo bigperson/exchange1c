@@ -9,9 +9,9 @@ declare(strict_types=1);
 
 namespace Tests\Services;
 
-use Bigperson\Exchange1C\Config;
-use Bigperson\Exchange1C\Exceptions\Exchange1CException;
-use Bigperson\Exchange1C\Services\AuthService;
+use Mikkimike\Exchange1C\Config;
+use Mikkimike\Exchange1C\Exceptions\Exchange1CException;
+use Mikkimike\Exchange1C\Services\AuthService;
 use Illuminate\Contracts\Session\Session;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\ServerBag;

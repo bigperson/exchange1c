@@ -9,10 +9,10 @@ declare(strict_types=1);
 
 namespace Tests;
 
-use Bigperson\Exchange1C\Config;
-use Bigperson\Exchange1C\Exceptions\Exchange1CException;
-use Bigperson\Exchange1C\Interfaces\GroupInterface;
-use Bigperson\Exchange1C\ModelBuilder;
+use Mikkimike\Exchange1C\Config;
+use Mikkimike\Exchange1C\Exceptions\Exchange1CException;
+use Mikkimike\Exchange1C\Interfaces\GroupInterface;
+use Mikkimike\Exchange1C\ModelBuilder;
 use Tests\Models\GroupTestModel;
 use Tests\Models\ProductTestModel;
 

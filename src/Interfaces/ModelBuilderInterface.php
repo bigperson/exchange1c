@@ -7,9 +7,9 @@
  */
 declare(strict_types=1);
 
-namespace Bigperson\Exchange1C\Interfaces;
+namespace Mikkimike\Exchange1C\Interfaces;
 
-use Bigperson\Exchange1C\Config;
+use Mikkimike\Exchange1C\Config;
 
 /**
  * Class ModelBuilderInterface.

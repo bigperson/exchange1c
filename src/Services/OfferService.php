@@ -7,18 +7,18 @@
  */
 declare(strict_types=1);
 
-namespace Bigperson\Exchange1C\Services;
+namespace Mikkimike\Exchange1C\Services;
 
-use Bigperson\Exchange1C\Config;
-use Bigperson\Exchange1C\Events\AfterOffersSync;
-use Bigperson\Exchange1C\Events\AfterUpdateOffer;
-use Bigperson\Exchange1C\Events\BeforeOffersSync;
-use Bigperson\Exchange1C\Events\BeforeUpdateOffer;
-use Bigperson\Exchange1C\Exceptions\Exchange1CException;
-use Bigperson\Exchange1C\Interfaces\EventDispatcherInterface;
-use Bigperson\Exchange1C\Interfaces\ModelBuilderInterface;
-use Bigperson\Exchange1C\Interfaces\OfferInterface;
-use Bigperson\Exchange1C\Interfaces\ProductInterface;
+use Mikkimike\Exchange1C\Config;
+use Mikkimike\Exchange1C\Events\AfterOffersSync;
+use Mikkimike\Exchange1C\Events\AfterUpdateOffer;
+use Mikkimike\Exchange1C\Events\BeforeOffersSync;
+use Mikkimike\Exchange1C\Events\BeforeUpdateOffer;
+use Mikkimike\Exchange1C\Exceptions\Exchange1CException;
+use Mikkimike\Exchange1C\Interfaces\EventDispatcherInterface;
+use Mikkimike\Exchange1C\Interfaces\ModelBuilderInterface;
+use Mikkimike\Exchange1C\Interfaces\OfferInterface;
+use Mikkimike\Exchange1C\Interfaces\ProductInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Zenwalker\CommerceML\CommerceML;
 use Zenwalker\CommerceML\Model\Offer;

@@ -7,9 +7,9 @@
  */
 declare(strict_types=1);
 
-namespace Bigperson\Exchange1C\Events;
+namespace Mikkimike\Exchange1C\Events;
 
-use Bigperson\Exchange1C\Interfaces\OfferInterface;
+use Mikkimike\Exchange1C\Interfaces\OfferInterface;
 use Zenwalker\CommerceML\Model\Offer;
 
 class AfterUpdateOffer extends AbstractEventInterface

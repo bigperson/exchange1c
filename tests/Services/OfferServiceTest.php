@@ -9,10 +9,10 @@ declare(strict_types=1);
 
 namespace Tests\Services;
 
-use Bigperson\Exchange1C\Config;
-use Bigperson\Exchange1C\Interfaces\EventDispatcherInterface;
-use Bigperson\Exchange1C\ModelBuilder;
-use Bigperson\Exchange1C\Services\OfferService;
+use Mikkimike\Exchange1C\Config;
+use Mikkimike\Exchange1C\Interfaces\EventDispatcherInterface;
+use Mikkimike\Exchange1C\ModelBuilder;
+use Mikkimike\Exchange1C\Services\OfferService;
 use Symfony\Component\HttpFoundation\Request;
 use Tests\TestCase;
 
@@ -23,9 +23,9 @@ class OfferServiceTest extends TestCase
         $configValues = [
             'import_dir' => __DIR__.'/../xml',
             'models'     => [
-                \Bigperson\Exchange1C\Interfaces\GroupInterface::class   => \Tests\Models\GroupTestModel::class,
-                \Bigperson\Exchange1C\Interfaces\ProductInterface::class => \Tests\Models\ProductTestModel::class,
-                \Bigperson\Exchange1C\Interfaces\OfferInterface::class   => \Tests\Models\OfferTestModel::class,
+                \Mikkimike\Exchange1C\Interfaces\GroupInterface::class   => \Tests\Models\GroupTestModel::class,
+                \Mikkimike\Exchange1C\Interfaces\ProductInterface::class => \Tests\Models\ProductTestModel::class,
+                \Mikkimike\Exchange1C\Interfaces\OfferInterface::class   => \Tests\Models\OfferTestModel::class,
             ],
         ];
 

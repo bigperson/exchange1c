@@ -7,7 +7,7 @@
  */
 declare(strict_types=1);
 
-namespace Bigperson\Exchange1C;
+namespace Mikkimike\Exchange1C;
 
 /**
  * Class Config.
@@ -43,9 +43,9 @@ class Config
      * @var array
      */
     private $models = [
-        \Bigperson\Exchange1C\Interfaces\GroupInterface::class   => null,
-        \Bigperson\Exchange1C\Interfaces\ProductInterface::class => null,
-        \Bigperson\Exchange1C\Interfaces\OfferInterface::class   => null,
+        \Mikkimike\Exchange1C\Interfaces\GroupInterface::class   => null,
+        \Mikkimike\Exchange1C\Interfaces\ProductInterface::class => null,
+        \Mikkimike\Exchange1C\Interfaces\OfferInterface::class   => null,
     ];
 
     /**

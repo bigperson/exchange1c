@@ -7,12 +7,12 @@
  */
 declare(strict_types=1);
 
-namespace Bigperson\Exchange1C\Events;
+namespace Mikkimike\Exchange1C\Events;
 
 /**
  * Class AbstractEventInterface.
  */
-abstract class AbstractEventInterface implements \Bigperson\Exchange1C\Interfaces\EventInterface
+abstract class AbstractEventInterface implements \Mikkimike\Exchange1C\Interfaces\EventInterface
 {
     public const NAME = self::class;
 

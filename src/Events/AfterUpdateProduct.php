@@ -7,9 +7,9 @@
  */
 declare(strict_types=1);
 
-namespace Bigperson\Exchange1C\Events;
+namespace Mikkimike\Exchange1C\Events;
 
-use Bigperson\Exchange1C\Interfaces\ProductInterface;
+use Mikkimike\Exchange1C\Interfaces\ProductInterface;
 
 class AfterUpdateProduct extends AbstractEventInterface
 {

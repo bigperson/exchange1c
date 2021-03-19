@@ -9,12 +9,12 @@ declare(strict_types=1);
 
 namespace Tests\Services;
 
-use Bigperson\Exchange1C\Config;
-use Bigperson\Exchange1C\Services\AuthService;
-use Bigperson\Exchange1C\Services\CatalogService;
-use Bigperson\Exchange1C\Services\CategoryService;
-use Bigperson\Exchange1C\Services\FileLoaderService;
-use Bigperson\Exchange1C\Services\OfferService;
+use Mikkimike\Exchange1C\Config;
+use Mikkimike\Exchange1C\Services\AuthService;
+use Mikkimike\Exchange1C\Services\CatalogService;
+use Mikkimike\Exchange1C\Services\CategoryService;
+use Mikkimike\Exchange1C\Services\FileLoaderService;
+use Mikkimike\Exchange1C\Services\OfferService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Tests\TestCase;
