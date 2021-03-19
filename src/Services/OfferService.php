@@ -11,9 +11,11 @@ namespace Mikkimike\Exchange1C\Services;
 
 use Mikkimike\Exchange1C\Config;
 use Mikkimike\Exchange1C\Events\AfterOffersSync;
+use Mikkimike\Exchange1C\Events\AfterProductFindError;
 use Mikkimike\Exchange1C\Events\AfterUpdateOffer;
 use Mikkimike\Exchange1C\Events\BeforeOffersSync;
 use Mikkimike\Exchange1C\Events\BeforeUpdateOffer;
+use Mikkimike\Exchange1C\Events\ImportLog;
 use Mikkimike\Exchange1C\Exceptions\Exchange1CException;
 use Mikkimike\Exchange1C\Interfaces\EventDispatcherInterface;
 use Mikkimike\Exchange1C\Interfaces\ModelBuilderInterface;
@@ -85,7 +87,12 @@ class OfferService
                 $this->parseProductOffer($model, $offer);
                 $this->_ids[] = $model->getPrimaryKey();
             } else {
-                throw new Exchange1CException("Продукт $productId не найден в базе");
+                $this->dispatcher->dispatches([
+                    new AfterProductFindError($productId, $offer),
+                    new ImportLog("Продукт $productId не найден в базе")
+                ]);
+                //throw new Exchange1CException("Продукт $productId не найден в базе");
+                continue;
             }
             unset($model);
         }
