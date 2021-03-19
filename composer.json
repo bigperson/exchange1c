@@ -1,5 +1,5 @@
 {
-  "name": "bigperson/exchange1c",
+  "name": "mikkimike/exchange1c",
   "type": "library",
   "description": "Catalog Loader from 1c - CommerceML protocol",
   "keywords": [
@@ -19,7 +19,7 @@
   "minimum-stability": "stable",
   "autoload": {
     "psr-4": {
-      "Bigperson\\Exchange1C\\": "src/"
+      "Mikkimike\\Exchange1C\\": "src/"
     }
   },
   "autoload-dev": {
