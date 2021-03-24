@@ -55,6 +55,8 @@ class FileLoaderService
             $f = fopen($filePath, 'a+');
             fwrite($f, file_get_contents('php://input'));
             fclose($f);
+
+
             if ($this->config->isUseZip()) {
                 $zip = new \ZipArchive();
                 $zip->open($filePath);

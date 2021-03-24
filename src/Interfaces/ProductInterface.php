@@ -70,7 +70,7 @@ interface ProductInterface extends IdentifierInterface
      *
      * @return void
      */
-    public function setProperty1c($property);
+    public function setProperty1c($property, ProductInterface $product);
 
     /**
      * @param string $path
@@ -92,11 +92,26 @@ interface ProductInterface extends IdentifierInterface
      * $properties[]->availableValues - список доступных значений, для этого свойства
      * import.xml > Классификатор > Свойства > Свойство > ВариантыЗначений > Справочник
      *
+     * @param ProductInterface $product
      * @param PropertyCollection $properties
      *
      * @return mixed
      */
     public static function createProperties1c($properties);
+
+    /**
+     * создать группы как сущность Product
+     *
+     * @param \Zenwalker\CommerceML\Model\Group[] $groups
+     * @return mixed
+     */
+    public static function createGroupsAsProduct($groups);
+    /**
+     * @param $properties
+     * @param ProductInterface $product
+     * @return mixed
+     */
+    public static function createProperties1cWidthProduct($properties, ProductInterface $product);
 
     /**
      * @param \Zenwalker\CommerceML\Model\Offer $offer

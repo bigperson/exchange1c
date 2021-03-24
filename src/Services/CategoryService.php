@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace Mikkimike\Exchange1C\Services;
 
+use Illuminate\Support\Facades\Log;
 use Mikkimike\Exchange1C\Config;
 use Mikkimike\Exchange1C\Events\AfterProductsSync;
 use Mikkimike\Exchange1C\Events\AfterUpdateProduct;
@@ -85,18 +86,27 @@ class CategoryService
         } else {
             $commerce->classifier->xml = simplexml_load_string(file_get_contents($classifierFile));
         }
+
         $this->beforeProductsSync();
 
-        if ($groupClass = $this->getGroupClass()) {
-            $groupClass::createTree1c($commerce->classifier->getGroups());
+        $productClass = $this->getProductClass();
+
+        if ($this->config->asCategory()) {
+            if ($groupClass = $this->getGroupClass()) {
+                $groupClass::createTree1c($commerce->classifier->getGroups());
+            }
+        } else {
+            $productClass::createGroupsAsProduct($commerce->classifier->getGroups());
         }
 
-        $productClass = $this->getProductClass();
         $productClass::createProperties1c($commerce->classifier->getProperties());
         foreach ($commerce->catalog->getProducts() as $product) {
             if (!$model = $productClass::createModel1c($product)) {
                 throw new Exchange1CException("Модель продукта не найдена, проверьте реализацию $productClass::createModel1c");
             }
+
+            //$productClass::createProperties1cWidthProduct($commerce->classifier->getProperties(), $model);
+
             $this->parseProduct($model, $product);
             $this->_ids[] = $model->getPrimaryKey();
             $model = null;
@@ -132,7 +142,7 @@ class CategoryService
         $model->setRaw1cData($product->owner, $product);
         $this->parseGroups($model, $product);
         $this->parseProperties($model, $product);
-        $this->parseRequisites($model, $product);
+        //$this->parseRequisites($model, $product);
         $this->parseImage($model, $product);
         $this->afterUpdateProduct($model);
 
@@ -156,7 +166,7 @@ class CategoryService
     protected function parseProperties(ProductInterface $model, Product $product): void
     {
         foreach ($product->getProperties() as $property) {
-            $model->setProperty1c($property);
+            $model->setProperty1c($property, $model);
         }
     }
 

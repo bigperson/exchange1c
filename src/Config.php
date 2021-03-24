@@ -35,6 +35,11 @@ class Config
     private $useZip = false;
 
     /**
+     * @var bool
+     */
+    private $asCategory = false;
+
+    /**
      * @var int
      */
     private $filePart = 0;
@@ -111,6 +116,14 @@ class Config
     public function getFilePart(): int
     {
         return $this->filePart;
+    }
+
+    /**
+     * @return bool
+     */
+    public function asCategory(): bool
+    {
+        return $this->asCategory;
     }
 
     /**
