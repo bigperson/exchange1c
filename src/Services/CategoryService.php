@@ -19,6 +19,7 @@ use Mikkimike\Exchange1C\Exceptions\Exchange1CException;
 use Mikkimike\Exchange1C\Interfaces\EventDispatcherInterface;
 use Mikkimike\Exchange1C\Interfaces\GroupInterface;
 use Mikkimike\Exchange1C\Interfaces\ModelBuilderInterface;
+use Mikkimike\Exchange1C\Interfaces\OfferInterface;
 use Mikkimike\Exchange1C\Interfaces\ProductInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Zenwalker\CommerceML\CommerceML;
@@ -88,17 +89,20 @@ class CategoryService
         }
 
         $this->beforeProductsSync();
-
-        $productClass = $this->getProductClass();
-
+        $groupClass = $this->getGroupClass();
         if ($this->config->asCategory()) {
-            if ($groupClass = $this->getGroupClass()) {
+            if ($groupClass) {
                 $groupClass::createTree1c($commerce->classifier->getGroups());
             }
         } else {
-            $productClass::createGroupsAsProduct($commerce->classifier->getGroups());
+            /**
+             * уже влиты продукты
+             */
+            $groupClass::createGroupsAsProduct($commerce->classifier->getGroups());
         }
 
+        $productClass = $this->getProductClass();
+        $offerClass = $this->getProductClass();
         $productClass::createProperties1c($commerce->classifier->getProperties());
         foreach ($commerce->catalog->getProducts() as $product) {
             if (!$model = $productClass::createModel1c($product)) {
@@ -133,37 +137,35 @@ class CategoryService
     }
 
     /**
-     * @param ProductInterface                    $model
      * @param \Zenwalker\CommerceML\Model\Product $product
      */
-    protected function parseProduct(ProductInterface $model, Product $product): void
+    protected function parseProduct($model, Product $product): void
     {
-        $this->beforeUpdateProduct($model);
+        //$this->beforeUpdateProduct($model);
         $model->setRaw1cData($product->owner, $product);
-        $this->parseGroups($model, $product);
-        $this->parseProperties($model, $product);
+        $this->parseGroupsAndProperties($model, $product);
+        //$this->parseProperties($model, $product);
         //$this->parseRequisites($model, $product);
-        $this->parseImage($model, $product);
-        $this->afterUpdateProduct($model);
+        //$this->parseImage($model, $product);
+        //$this->afterUpdateProduct($model);
 
         unset($group);
     }
 
     /**
-     * @param ProductInterface $model
      * @param Product          $product
      */
-    protected function parseGroups(ProductInterface $model, Product $product): void
+    protected function parseGroupsAndProperties($model, Product $product): void
     {
         $group = $product->getGroup();
-        $model->setGroup1c($group);
+        $model->setGroup1cAndProperties($group, $product->getProperties());
     }
 
     /**
      * @param ProductInterface $model
      * @param Product          $product
      */
-    protected function parseProperties(ProductInterface $model, Product $product): void
+    protected function parseProperties($model, Product $product): void
     {
         foreach ($product->getProperties() as $property) {
             $model->setProperty1c($property, $model);
