@@ -44,7 +44,11 @@ class FileLoaderService
     public function load(): string
     {
         $filename = basename($this->request->get('filename'));
-        $filePath = $this->config->getFullPath($filename);
+        $category = false;
+        if ($this->request->has('category')) {
+            $category = $this->request->get('category');
+        }
+        $filePath = $this->config->getFullPath($filename, $category);
         if ($filename === 'orders.xml') {
             throw new \LogicException('This method is not released');
         } else {

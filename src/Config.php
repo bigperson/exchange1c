@@ -153,8 +153,11 @@ class Config
      *
      * @return string
      */
-    public function getFullPath(string $filename): string
+    public function getFullPath(string $filename, $category = false): string
     {
+        if ($category) {
+            return $this->getImportDir().DIRECTORY_SEPARATOR.$category.DIRECTORY_SEPARATOR.$filename;
+        }
         return $this->getImportDir().DIRECTORY_SEPARATOR.$filename;
     }
 

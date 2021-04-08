@@ -89,21 +89,24 @@ class CategoryService
         }
 
         $this->beforeProductsSync();
+
         $groupClass = $this->getGroupClass();
+        $productClass = $this->getProductClass();
+        $offerClass = $this->getProductClass();
+
+        $productClass::createProperties1c($commerce->classifier->getProperties());
+
         if ($this->config->asCategory()) {
             if ($groupClass) {
-                $groupClass::createTree1c($commerce->classifier->getGroups());
+             //   $groupClass::createTree1c($commerce->classifier->getGroups());
             }
         } else {
             /**
              * уже влиты продукты
              */
-            $groupClass::createGroupsAsProduct($commerce->classifier->getGroups());
+           // $groupClass::createGroupsAsProduct($commerce->classifier->getGroups());
         }
 
-        $productClass = $this->getProductClass();
-        $offerClass = $this->getProductClass();
-        $productClass::createProperties1c($commerce->classifier->getProperties());
         foreach ($commerce->catalog->getProducts() as $product) {
             if (!$model = $productClass::createModel1c($product)) {
                 throw new Exchange1CException("Модель продукта не найдена, проверьте реализацию $productClass::createModel1c");
@@ -144,11 +147,11 @@ class CategoryService
         //$this->beforeUpdateProduct($model);
         $model->setRaw1cData($product->owner, $product);
         $this->parseGroupsAndProperties($model, $product);
-        //$this->parseProperties($model, $product);
         //$this->parseRequisites($model, $product);
+        //$this->ownProducts($model, $product);
+        $this->parseProperties($model, $product);
         //$this->parseImage($model, $product);
         //$this->afterUpdateProduct($model);
-
         unset($group);
     }
 
@@ -165,7 +168,7 @@ class CategoryService
      * @param ProductInterface $model
      * @param Product          $product
      */
-    protected function parseProperties($model, Product $product): void
+    protected function parseProperties($model, $product): void
     {
         foreach ($product->getProperties() as $property) {
             $model->setProperty1c($property, $model);
