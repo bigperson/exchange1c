@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace Mikkimike\Exchange1C\Services;
 
+use Illuminate\Support\Facades\Log;
 use Mikkimike\Exchange1C\Config;
 use Mikkimike\Exchange1C\Events\AfterOffersSync;
 use Mikkimike\Exchange1C\Events\AfterProductFindError;
@@ -75,6 +76,7 @@ class OfferService
         $filename = basename($this->request->get('filename'));
         $this->_ids = [];
         $commerce = new CommerceML();
+        Log::info($this->config->getFullPath($filename));
         $commerce->loadOffersXml($this->config->getFullPath($filename));
         if ($offerClass = $this->getOfferClass()) {
             $offerClass::createPriceTypes1c($commerce->offerPackage->getPriceTypes());
