@@ -76,8 +76,12 @@ class OfferService
         $filename = basename($this->request->get('filename'));
         $this->_ids = [];
         $commerce = new CommerceML();
-        Log::info($this->config->getFullPath($filename));
-        $commerce->loadOffersXml($this->config->getFullPath($filename));
+        $category = false;
+        if ($this->request->has('category')) {
+            $category = $this->request->get('category');
+        }
+        
+        $commerce->loadOffersXml($this->config->getFullPath($filename, $category));
         if ($offerClass = $this->getOfferClass()) {
             $offerClass::createPriceTypes1c($commerce->offerPackage->getPriceTypes());
         }
