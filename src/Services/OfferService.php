@@ -17,11 +17,16 @@ use Mikkimike\Exchange1C\Events\AfterUpdateOffer;
 use Mikkimike\Exchange1C\Events\BeforeOffersSync;
 use Mikkimike\Exchange1C\Events\BeforeUpdateOffer;
 use Mikkimike\Exchange1C\Events\ImportLog;
+use Mikkimike\Exchange1C\Events\ImportProcessDataBridge;
 use Mikkimike\Exchange1C\Exceptions\Exchange1CException;
 use Mikkimike\Exchange1C\Interfaces\EventDispatcherInterface;
 use Mikkimike\Exchange1C\Interfaces\ModelBuilderInterface;
 use Mikkimike\Exchange1C\Interfaces\OfferInterface;
 use Mikkimike\Exchange1C\Interfaces\ProductInterface;
+use Mikkimike\Exchange1C\PayloadTypes\ConsoleNextStep;
+use Mikkimike\Exchange1C\PayloadTypes\ConsoleProgressFinish;
+use Mikkimike\Exchange1C\PayloadTypes\ConsoleProgressStart;
+use Mikkimike\Exchange1C\PayloadTypes\PayloadTypeInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Zenwalker\CommerceML\CommerceML;
 use Zenwalker\CommerceML\Model\Offer;
@@ -80,13 +85,20 @@ class OfferService
         if ($this->request->has('category')) {
             $category = $this->request->get('category');
         }
-        
+
         $commerce->loadOffersXml($this->config->getFullPath($filename, $category));
         if ($offerClass = $this->getOfferClass()) {
             $offerClass::createPriceTypes1c($commerce->offerPackage->getPriceTypes());
         }
         $this->beforeOfferSync();
-        foreach ($commerce->offerPackage->getOffers() as $offer) {
+
+        $this->dispatcher->dispatch(new ImportLog('Sync offers'));
+
+        $getOffers = $commerce->offerPackage->getOffers();
+
+        $this->ImportProcessDataBridge(new ConsoleProgressStart($getOffers));
+
+        foreach ($getOffers as $offer) {
             $productId = $offer->getClearId();
             if ($product = $this->findProductModelById($productId)) {
                 $model = $product->getOffer1c($offer);
@@ -101,8 +113,10 @@ class OfferService
                 continue;
             }
             unset($model);
+            $this->ImportProcessDataBridge(new ConsoleNextStep());
         }
         $this->afterOfferSync();
+        $this->ImportProcessDataBridge(new ConsoleProgressFinish());
     }
 
     /**
@@ -118,7 +132,7 @@ class OfferService
      *
      * @return ProductInterface|null
      */
-    protected function findProductModelById(string $id): ?ProductInterface
+    protected function findProductModelById(string $id) //: ?ProductInterface
     {
         /**
          * @var ProductInterface
@@ -191,6 +205,15 @@ class OfferService
     public function afterUpdateOffer(OfferInterface $model, Offer $offer)
     {
         $event = new AfterUpdateOffer($model, $offer);
+        $this->dispatcher->dispatch($event);
+    }
+
+    /**
+     * @param ProductInterface $model
+     */
+    protected function ImportProcessDataBridge(PayloadTypeInterface $model): void
+    {
+        $event = new ImportProcessDataBridge($model);
         $this->dispatcher->dispatch($event);
     }
 }

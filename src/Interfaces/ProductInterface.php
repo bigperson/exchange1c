@@ -97,7 +97,7 @@ interface ProductInterface extends IdentifierInterface
      *
      * @return mixed
      */
-    public static function createProperties1c($properties);
+    public function createProperties1c($properties);
 
     /**
      * создать группы как сущность Product
@@ -132,5 +132,5 @@ interface ProductInterface extends IdentifierInterface
      *
      * @return ProductInterface|null
      */
-    public static function findProductBy1c(string $id): ?self;
+    public static function findProductBy1c(string $id);
 }

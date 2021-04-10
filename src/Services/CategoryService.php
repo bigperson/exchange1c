@@ -15,12 +15,19 @@ use Mikkimike\Exchange1C\Events\AfterProductsSync;
 use Mikkimike\Exchange1C\Events\AfterUpdateProduct;
 use Mikkimike\Exchange1C\Events\BeforeProductsSync;
 use Mikkimike\Exchange1C\Events\BeforeUpdateProduct;
+use Mikkimike\Exchange1C\Events\ImportLog;
+use Mikkimike\Exchange1C\Events\ImportProcessDataBridge;
 use Mikkimike\Exchange1C\Exceptions\Exchange1CException;
 use Mikkimike\Exchange1C\Interfaces\EventDispatcherInterface;
 use Mikkimike\Exchange1C\Interfaces\GroupInterface;
 use Mikkimike\Exchange1C\Interfaces\ModelBuilderInterface;
 use Mikkimike\Exchange1C\Interfaces\OfferInterface;
 use Mikkimike\Exchange1C\Interfaces\ProductInterface;
+use Mikkimike\Exchange1C\PayloadTypes\ConsoleNextStep;
+use Mikkimike\Exchange1C\PayloadTypes\ConsoleProgressFinish;
+use Mikkimike\Exchange1C\PayloadTypes\ConsoleProgressStart;
+use Mikkimike\Exchange1C\PayloadTypes\PayloadTypeInterface;
+use Mikkimike\Exchange1C\PayloadTypes\ProductCount;
 use Symfony\Component\HttpFoundation\Request;
 use Zenwalker\CommerceML\CommerceML;
 use Zenwalker\CommerceML\Model\Product;
@@ -80,8 +87,11 @@ class CategoryService
     {
         $filename = basename($this->request->get('filename'));
         $commerce = new CommerceML();
-        $commerce->loadImportXml($this->config->getFullPath($filename));
-        $classifierFile = $this->config->getFullPath('classifier.xml');
+
+        $category = false;
+        if ($this->request->has('category')) $category = $this->request->get('category');
+        $commerce->loadImportXml($this->config->getFullPath($filename, $category));
+        $classifierFile = $this->config->getFullPath('classifier.xml', $category);
         if ($commerce->classifier->xml) {
             $commerce->classifier->xml->saveXML($classifierFile);
         } else {
@@ -94,7 +104,8 @@ class CategoryService
         $productClass = $this->getProductClass();
         $offerClass = $this->getProductClass();
 
-        $productClass::createProperties1c($commerce->classifier->getProperties());
+        $this->dispatcher->dispatch(new ImportLog('Sync properties'));
+        $productClass->createProperties1c($commerce->classifier->getProperties());
 
         if ($this->config->asCategory()) {
             if ($groupClass) {
@@ -107,11 +118,16 @@ class CategoryService
            // $groupClass::createGroupsAsProduct($commerce->classifier->getGroups());
         }
 
-        foreach ($commerce->catalog->getProducts() as $product) {
+        $this->dispatcher->dispatch(new ImportLog('Sync products'));
+        $getProducts = $commerce->catalog->getProducts();
+
+        $this->ImportProcessDataBridge(new ConsoleProgressStart($getProducts));
+        foreach ($getProducts as $product) {
+            
             if (!$model = $productClass::createModel1c($product)) {
                 throw new Exchange1CException("Модель продукта не найдена, проверьте реализацию $productClass::createModel1c");
             }
-
+            
             //$productClass::createProperties1cWidthProduct($commerce->classifier->getProperties(), $model);
 
             $this->parseProduct($model, $product);
@@ -119,7 +135,10 @@ class CategoryService
             $model = null;
             unset($model, $product);
             gc_collect_cycles();
+            $this->ImportProcessDataBridge(new ConsoleNextStep());
         }
+        $this->ImportProcessDataBridge(new ConsoleProgressFinish());
+        $this->dispatcher->dispatch(new ImportLog('Products sync finished'));
         $this->afterProductsSync();
     }
 
@@ -229,6 +248,15 @@ class CategoryService
     protected function afterUpdateProduct(ProductInterface $model): void
     {
         $event = new AfterUpdateProduct($model);
+        $this->dispatcher->dispatch($event);
+    }
+
+    /**
+     * @param ProductInterface $model
+     */
+    protected function ImportProcessDataBridge(PayloadTypeInterface $model): void
+    {
+        $event = new ImportProcessDataBridge($model);
         $this->dispatcher->dispatch($event);
     }
 }
