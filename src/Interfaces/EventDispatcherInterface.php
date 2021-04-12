@@ -9,6 +9,8 @@ declare(strict_types=1);
 
 namespace Mikkimike\Exchange1C\Interfaces;
 
+use Closure;
+
 /**
  * Interface EventDispatcherInterface.
  */
@@ -18,4 +20,5 @@ interface EventDispatcherInterface
      * @param EventInterface $event
      */
     public function dispatch(EventInterface $event): void;
+
 }

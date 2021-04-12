@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace Mikkimike\Exchange1C\Interfaces;
 
 use Zenwalker\CommerceML\Model\PropertyCollection;
+use Illuminate\Http\Request;
 
 /**
  * Interface ProductInterface.
@@ -125,7 +126,7 @@ interface ProductInterface extends IdentifierInterface
      *
      * @return self
      */
-    public static function createModel1c($product);
+    public function createModel1c($product, Request $request);
 
     /**
      * @param string $id

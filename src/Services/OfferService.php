@@ -109,8 +109,9 @@ class OfferService
                     new AfterProductFindError($productId, $offer),
                     new ImportLog("Продукт $productId не найден в базе")
                 ]);
-                //throw new Exchange1CException("Продукт $productId не найден в базе");
                 continue;
+
+                //throw new Exchange1CException("Продукт $productId не найден в базе");
             }
             unset($model);
             $this->ImportProcessDataBridge(new ConsoleNextStep());
@@ -172,7 +173,7 @@ class OfferService
     protected function parsePrice(OfferInterface $model, Offer $offer)
     {
         foreach ($offer->getPrices() as $price) {
-            $model->setPrice1c($price);
+            $model->setPrice1c($price, $offer->xml->Количество);
         }
     }
 

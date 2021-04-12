@@ -9,10 +9,12 @@ declare(strict_types=1);
 
 namespace Mikkimike\Exchange1C\Events;
 
+use Mikkimike\Exchange1C\Interfaces\EventInterface;
+
 /**
  * Class AbstractEventInterface.
  */
-abstract class AbstractEventInterface implements \Mikkimike\Exchange1C\Interfaces\EventInterface
+abstract class AbstractEventInterface implements EventInterface
 {
     public const NAME = self::class;
 

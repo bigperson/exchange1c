@@ -9,6 +9,8 @@ declare(strict_types=1);
 
 namespace Mikkimike\Exchange1C\Services;
 
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Log;
 use Mikkimike\Exchange1C\Config;
 use Mikkimike\Exchange1C\Events\AfterProductsSync;
@@ -28,6 +30,7 @@ use Mikkimike\Exchange1C\PayloadTypes\ConsoleProgressFinish;
 use Mikkimike\Exchange1C\PayloadTypes\ConsoleProgressStart;
 use Mikkimike\Exchange1C\PayloadTypes\PayloadTypeInterface;
 use Mikkimike\Exchange1C\PayloadTypes\ProductCount;
+use Mikkimike\Exchange1C\PayloadTypes\TransactionRollback;
 use Symfony\Component\HttpFoundation\Request;
 use Zenwalker\CommerceML\CommerceML;
 use Zenwalker\CommerceML\Model\Product;
@@ -62,6 +65,9 @@ class CategoryService
      */
     private $modelBuilder;
 
+
+    private $continue = false;
+
     /**
      * CategoryService constructor.
      *
@@ -87,7 +93,6 @@ class CategoryService
     {
         $filename = basename($this->request->get('filename'));
         $commerce = new CommerceML();
-
         $category = false;
         if ($this->request->has('category')) $category = $this->request->get('category');
         $commerce->loadImportXml($this->config->getFullPath($filename, $category));
@@ -123,14 +128,21 @@ class CategoryService
 
         $this->ImportProcessDataBridge(new ConsoleProgressStart($getProducts));
         foreach ($getProducts as $product) {
-            
-            if (!$model = $productClass::createModel1c($product)) {
+            DB::beginTransaction();
+            if (!$model = $productClass->createModel1c($product, $this->request)) {
                 throw new Exchange1CException("Модель продукта не найдена, проверьте реализацию $productClass::createModel1c");
             }
-            
-            //$productClass::createProperties1cWidthProduct($commerce->classifier->getProperties(), $model);
 
-            $this->parseProduct($model, $product);
+            $productClass->attachPropertySet($product);
+
+            $properties = $product->getProperties();
+            foreach ($properties as $property) {
+                $model->setProperty($property);
+            }
+
+
+            DB::commit();
+
             $this->_ids[] = $model->getPrimaryKey();
             $model = null;
             unset($model, $product);
@@ -159,28 +171,12 @@ class CategoryService
     }
 
     /**
-     * @param \Zenwalker\CommerceML\Model\Product $product
-     */
-    protected function parseProduct($model, Product $product): void
-    {
-        //$this->beforeUpdateProduct($model);
-        $model->setRaw1cData($product->owner, $product);
-        $this->parseGroupsAndProperties($model, $product);
-        //$this->parseRequisites($model, $product);
-        //$this->ownProducts($model, $product);
-        $this->parseProperties($model, $product);
-        //$this->parseImage($model, $product);
-        //$this->afterUpdateProduct($model);
-        unset($group);
-    }
-
-    /**
      * @param Product          $product
      */
     protected function parseGroupsAndProperties($model, Product $product): void
     {
-        $group = $product->getGroup();
-        $model->setGroup1cAndProperties($group, $product->getProperties());
+        //$group = $product->getGroup();
+       // $model->setGroup1cAndProperties($group, $product->getProperties());
     }
 
     /**

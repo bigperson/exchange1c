@@ -27,7 +27,7 @@ interface OfferInterface extends ExportFieldsInterface, IdentifierInterface
      *
      * @return void
      */
-    public function setPrice1c($price);
+    public function setPrice1c($price, $quantity);
 
     /**
      * @param $types
