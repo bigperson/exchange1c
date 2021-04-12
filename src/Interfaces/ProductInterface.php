@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace Mikkimike\Exchange1C\Interfaces;
 
+use App\Services\CategoryAssociate\CategoryAssociateInterface;
 use Zenwalker\CommerceML\Model\PropertyCollection;
 use Illuminate\Http\Request;
 
@@ -126,7 +127,7 @@ interface ProductInterface extends IdentifierInterface
      *
      * @return self
      */
-    public function createModel1c($product, Request $request);
+    public function createModel1c($product);
 
     /**
      * @param string $id
