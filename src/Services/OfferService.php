@@ -23,9 +23,11 @@ use Mikkimike\Exchange1C\Interfaces\EventDispatcherInterface;
 use Mikkimike\Exchange1C\Interfaces\ModelBuilderInterface;
 use Mikkimike\Exchange1C\Interfaces\OfferInterface;
 use Mikkimike\Exchange1C\Interfaces\ProductInterface;
+use Mikkimike\Exchange1C\PayloadTypes\BatchStart;
 use Mikkimike\Exchange1C\PayloadTypes\ConsoleNextStep;
 use Mikkimike\Exchange1C\PayloadTypes\ConsoleProgressFinish;
 use Mikkimike\Exchange1C\PayloadTypes\ConsoleProgressStart;
+use Mikkimike\Exchange1C\PayloadTypes\Offer1c;
 use Mikkimike\Exchange1C\PayloadTypes\PayloadTypeInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Zenwalker\CommerceML\CommerceML;
@@ -94,30 +96,13 @@ class OfferService
 
         $this->dispatcher->dispatch(new ImportLog('Sync offers'));
 
-        $getOffers = $commerce->offerPackage->getOffers();
+        $offers = $commerce->offerPackage->getOffers();
 
-        $this->ImportProcessDataBridge(new ConsoleProgressStart($getOffers));
-
-        foreach ($getOffers as $offer) {
-            $productId = $offer->getClearId();
-            if ($product = $this->findProductModelById($productId)) {
-                $model = $product->getOffer1c($offer);
-                $this->parseProductOffer($model, $offer);
-                $this->_ids[] = $model->getPrimaryKey();
-            } else {
-                $this->dispatcher->dispatches([
-                    new AfterProductFindError($productId, $offer),
-                    new ImportLog("Продукт $productId не найден в базе")
-                ]);
-                continue;
-
-                //throw new Exchange1CException("Продукт $productId не найден в базе");
-            }
-            unset($model);
-            $this->ImportProcessDataBridge(new ConsoleNextStep());
+        foreach ($offers as $offer) {
+            $this->ImportProcessDataBridge(new Offer1c($offer));
         }
-        $this->afterOfferSync();
-        $this->ImportProcessDataBridge(new ConsoleProgressFinish());
+
+        $this->ImportProcessDataBridge(new BatchStart("OFFERS IMPORT"));
     }
 
     /**

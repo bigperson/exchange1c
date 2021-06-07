@@ -25,10 +25,12 @@ use Mikkimike\Exchange1C\Interfaces\GroupInterface;
 use Mikkimike\Exchange1C\Interfaces\ModelBuilderInterface;
 use Mikkimike\Exchange1C\Interfaces\OfferInterface;
 use Mikkimike\Exchange1C\Interfaces\ProductInterface;
+use Mikkimike\Exchange1C\PayloadTypes\BatchStart;
 use Mikkimike\Exchange1C\PayloadTypes\ConsoleNextStep;
 use Mikkimike\Exchange1C\PayloadTypes\ConsoleProgressFinish;
 use Mikkimike\Exchange1C\PayloadTypes\ConsoleProgressStart;
 use Mikkimike\Exchange1C\PayloadTypes\PayloadTypeInterface;
+use Mikkimike\Exchange1C\PayloadTypes\Product1c;
 use Mikkimike\Exchange1C\PayloadTypes\ProductCount;
 use Mikkimike\Exchange1C\PayloadTypes\TransactionRollback;
 use Symfony\Component\HttpFoundation\Request;
@@ -71,10 +73,10 @@ class CategoryService
     /**
      * CategoryService constructor.
      *
-     * @param Request                  $request
-     * @param Config                   $config
+     * @param Request $request
+     * @param Config $config
      * @param EventDispatcherInterface $dispatcher
-     * @param ModelBuilderInterface    $modelBuilder
+     * @param ModelBuilderInterface $modelBuilder
      */
     public function __construct(Request $request, Config $config, EventDispatcherInterface $dispatcher, ModelBuilderInterface $modelBuilder)
     {
@@ -107,52 +109,19 @@ class CategoryService
 
         $groupClass = $this->getGroupClass();
         $productClass = $this->getProductClass();
-        $offerClass = $this->getProductClass();
 
-        $this->dispatcher->dispatch(new ImportLog('Sync properties'));
         $productClass->createProperties1c($commerce->classifier->getProperties());
+        $products = $commerce->catalog->getProducts();
 
-        if ($this->config->asCategory()) {
-            if ($groupClass) {
-             //   $groupClass::createTree1c($commerce->classifier->getGroups());
-            }
-        } else {
-            /**
-             * уже влиты продукты
-             */
-           // $groupClass::createGroupsAsProduct($commerce->classifier->getGroups());
-        }
-
-        $this->dispatcher->dispatch(new ImportLog('Sync products'));
-        $getProducts = $commerce->catalog->getProducts();
-
-        $this->ImportProcessDataBridge(new ConsoleProgressStart($getProducts));
-        foreach ($getProducts as $product) {
-            DB::beginTransaction();
-            if (!$model = $productClass->createModel1c($product, $this->request)) {
-                throw new Exchange1CException("Модель продукта не найдена, проверьте реализацию $productClass::createModel1c");
-            }
-
-            $productClass->attachPropertySet($product);
-
-            $properties = $product->getProperties();
-            foreach ($properties as $property) {
-                $model->setProperty($property);
-            }
-
-
-            DB::commit();
-
-            $this->_ids[] = $model->getPrimaryKey();
-            $model = null;
-            unset($model, $product);
-            gc_collect_cycles();
+        $this->ImportProcessDataBridge(new ConsoleProgressStart($products));
+        foreach ($products as $product) {
+            $this->ImportProcessDataBridge(new Product1c($product));
             $this->ImportProcessDataBridge(new ConsoleNextStep());
         }
         $this->ImportProcessDataBridge(new ConsoleProgressFinish());
-        $this->dispatcher->dispatch(new ImportLog('Products sync finished'));
-        $this->afterProductsSync();
+        $this->ImportProcessDataBridge(new BatchStart("PRODUCT IMPORT"));
     }
+
 
     /**
      * @return GroupInterface|null
@@ -171,17 +140,17 @@ class CategoryService
     }
 
     /**
-     * @param Product          $product
+     * @param Product $product
      */
     protected function parseGroupsAndProperties($model, Product $product): void
     {
         //$group = $product->getGroup();
-       // $model->setGroup1cAndProperties($group, $product->getProperties());
+        // $model->setGroup1cAndProperties($group, $product->getProperties());
     }
 
     /**
      * @param ProductInterface $model
-     * @param Product          $product
+     * @param Product $product
      */
     protected function parseProperties($model, $product): void
     {
@@ -192,7 +161,7 @@ class CategoryService
 
     /**
      * @param ProductInterface $model
-     * @param Product          $product
+     * @param Product $product
      */
     protected function parseRequisites(ProductInterface $model, Product $product): void
     {
@@ -204,7 +173,7 @@ class CategoryService
 
     /**
      * @param ProductInterface $model
-     * @param Product          $product
+     * @param Product $product
      */
     protected function parseImage(ProductInterface $model, Product $product)
     {
