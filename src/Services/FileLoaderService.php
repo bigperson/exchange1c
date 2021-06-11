@@ -78,7 +78,13 @@ class FileLoaderService
      */
     public function clearImportDirectory(): void
     {
-        $tmp_files = glob($this->config->getImportDir().DIRECTORY_SEPARATOR.'*.*');
+        $path = DIRECTORY_SEPARATOR;
+
+        if ($this->request->has('category')) {
+            $path = DIRECTORY_SEPARATOR . $this->request->get('category') . DIRECTORY_SEPARATOR;
+        }
+
+        $tmp_files = glob($this->config->getImportDir().$path.'*.*');
         if (is_array($tmp_files)) {
             foreach ($tmp_files as $v) {
                 unlink($v);
