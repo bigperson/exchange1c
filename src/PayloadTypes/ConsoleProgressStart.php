@@ -20,6 +20,6 @@ class ConsoleProgressStart implements PayloadTypeInterface
      */
     public function __construct($products)
     {
-        return $this->count = count($products);
+        return $this->count = $products;
     }
 }

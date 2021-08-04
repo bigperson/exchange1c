@@ -40,6 +40,11 @@ class Config
     private $asCategory = false;
 
     /**
+     * @var bool
+     */
+    private $debug = false;
+
+    /**
      * @var int
      */
     private $filePart = 0;
@@ -126,6 +131,11 @@ class Config
         return $this->asCategory;
     }
 
+    public function isDebug(): bool
+    {
+        return $this->debug;
+    }
+    
     /**
      * @return array
      */
