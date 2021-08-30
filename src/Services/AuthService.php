@@ -75,7 +75,6 @@ class AuthService
         } else {
             $response = "failure\n";
         }
-
         return $response;
     }
 

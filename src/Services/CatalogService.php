@@ -100,6 +100,22 @@ class CatalogService extends AbstractService
                     $this->offerService->import();
                     break;
                 }
+            case 'import_orders.xml':
+            {
+                $this->ordersService->import();
+                break;
+            }
+            case 'user_person.xml':
+            {
+                $this->ordersService->import();
+                break;
+            }
+            case 'user_entity.xml':
+            {
+                $this->ordersService->import();
+                break;
+            }
+
         }
 
         $response = "success\n";

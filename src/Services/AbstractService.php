@@ -46,6 +46,16 @@ abstract class AbstractService
      * @var OfferService
      */
     protected $offerService;
+    
+    /**
+     * @var OrderService
+     */
+    protected $orderService;
+    
+    /**
+     * @var UserService
+     */
+    protected $userService;
 
     /**
      * AbstractService constructor.
@@ -56,6 +66,7 @@ abstract class AbstractService
      * @param FileLoaderService $loaderService
      * @param CategoryService   $categoryService
      * @param OfferService      $offerService
+     * @param OrderService      $orderService
      */
     public function __construct(
         Request $request,
@@ -63,7 +74,9 @@ abstract class AbstractService
         AuthService $authService,
         FileLoaderService $loaderService,
         CategoryService $categoryService,
-        OfferService $offerService
+        OfferService $offerService,
+        OrderService $orderService,
+        UserService $userService        
     ) {
         $this->request = $request;
         $this->config = $config;
@@ -71,5 +84,7 @@ abstract class AbstractService
         $this->loaderService = $loaderService;
         $this->categoryService = $categoryService;
         $this->offerService = $offerService;
+        $this->orderService = $orderService;
+        $this->userService = $userService;
     }
 }
