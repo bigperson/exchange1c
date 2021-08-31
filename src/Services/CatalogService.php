@@ -102,17 +102,17 @@ class CatalogService extends AbstractService
                 }
             case 'import_orders.xml':
             {
-                $this->ordersService->import();
+                $this->orderService->import();
                 break;
             }
             case 'user_person.xml':
             {
-                $this->ordersService->import();
+                $this->userService->import();
                 break;
             }
             case 'user_entity.xml':
             {
-                $this->ordersService->import();
+                $this->userService->import();
                 break;
             }
 

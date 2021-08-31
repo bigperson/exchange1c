@@ -11,24 +11,14 @@ namespace Mikkimike\Exchange1C\Services;
 
 use Illuminate\Support\Facades\Log;
 use Mikkimike\Exchange1C\Config;
-use Mikkimike\Exchange1C\Events\AfterOffersSync;
-use Mikkimike\Exchange1C\Events\AfterProductFindError;
-use Mikkimike\Exchange1C\Events\AfterUpdateOffer;
-use Mikkimike\Exchange1C\Events\BeforeOffersSync;
-use Mikkimike\Exchange1C\Events\BeforeUpdateOffer;
 use Mikkimike\Exchange1C\Events\ImportLog;
 use Mikkimike\Exchange1C\Events\ImportProcessDataBridge;
 use Mikkimike\Exchange1C\Exceptions\Exchange1CException;
 use Mikkimike\Exchange1C\Interfaces\EventDispatcherInterface;
 use Mikkimike\Exchange1C\Interfaces\ModelBuilderInterface;
-use Mikkimike\Exchange1C\Interfaces\OfferInterface;
 use Mikkimike\Exchange1C\Interfaces\ProductInterface;
 use Mikkimike\Exchange1C\PayloadTypes\BatchStart;
-use Mikkimike\Exchange1C\PayloadTypes\ConsoleNextStep;
-use Mikkimike\Exchange1C\PayloadTypes\ConsoleProgressFinish;
-use Mikkimike\Exchange1C\PayloadTypes\ConsoleProgressStart;
-use Mikkimike\Exchange1C\PayloadTypes\Offer1c;
-use Mikkimike\Exchange1C\PayloadTypes\Order1c;
+use Mikkimike\Exchange1C\PayloadTypes\User1c;
 use Mikkimike\Exchange1C\PayloadTypes\PayloadTypeInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Zenwalker\CommerceML\CommerceML;
@@ -89,11 +79,9 @@ class UserService
             $category = $this->request->get('category');
         }
 
-        $this->beforeOrderSync();
-
         $this->dispatcher->dispatch(new ImportLog('Sync users'));
 
-        $xml = simplexml_load_string(file_get_contents(storage_path('app/users_person/users.xml')));
+        $xml = simplexml_load_string(file_get_contents(storage_path('app/users_person/user_person.xml')));
 
         foreach ($xml as $item) {
             $this->ImportProcessDataBridge(new User1c($item));

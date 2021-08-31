@@ -67,6 +67,7 @@ abstract class AbstractService
      * @param CategoryService   $categoryService
      * @param OfferService      $offerService
      * @param OrderService      $orderService
+     * @param UserService      $userService
      */
     public function __construct(
         Request $request,
