@@ -89,11 +89,9 @@ class OrderService
             $category = $this->request->get('category');
         }
 
-        $this->beforeOrderSync();
-
         $this->dispatcher->dispatch(new ImportLog('Sync orders'));
 
-        $xml = simplexml_load_string(file_get_contents(storage_path('app/orders/import_orders.xml')));
+        $xml = simplexml_load_string(file_get_contents(storage_path('app/1c_exchange/orders/import_orders.xml')));
         
         foreach ($xml as $item) {
             $this->ImportProcessDataBridge(new Order1c($item));
