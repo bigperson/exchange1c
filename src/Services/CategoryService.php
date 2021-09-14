@@ -106,20 +106,17 @@ class CategoryService
         }
 
         $this->beforeProductsSync();
-
-        $groupClass = $this->getGroupClass();
         $productClass = $this->getProductClass();
-
         $productClass->createProperties1c($commerce->classifier->getProperties());
         $products = $commerce->catalog->getProducts();
-
         $this->ImportProcessDataBridge(new ConsoleProgressStart($products));
         foreach ($products as $product) {
-            $this->ImportProcessDataBridge(new Product1c($product));
+            $this->ImportProcessDataBridge(new Product1c($product, $commerce));
             $this->ImportProcessDataBridge(new ConsoleNextStep());
         }
         $this->ImportProcessDataBridge(new ConsoleProgressFinish());
         $this->ImportProcessDataBridge(new BatchStart("PRODUCT IMPORT"));
+
     }
 
 
