@@ -89,6 +89,7 @@ class CatalogService extends AbstractService
     {
         $this->authService->auth();
         $filename = $this->request->get('filename');
+
         switch ($filename) {
             case 'import.xml':
                 {
@@ -105,12 +106,7 @@ class CatalogService extends AbstractService
                 $this->orderService->import();
                 break;
             }
-            case 'user_person.xml':
-            {
-                $this->userService->import();
-                break;
-            }
-            case 'user_entity.xml':
+            case 'users.xml':
             {
                 $this->userService->import();
                 break;
