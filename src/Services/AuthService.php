@@ -12,6 +12,7 @@ namespace Bigperson\Exchange1C\Services;
 use Bigperson\Exchange1C\Config;
 use Bigperson\Exchange1C\Exceptions\Exchange1CException;
 use Illuminate\Contracts\Session\Session;
+use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
@@ -84,11 +85,22 @@ class AuthService
      */
     public function auth(): void
     {
-        $login = $this->config->getLogin();
-        $user = $this->session->get(self::SESSION_KEY.'_auth', null);
+        // пользовательская настройка авторизации
+        $configAuth = $this->config->getAuth();
 
-        if (!$user || $user != $login) {
-            throw new Exchange1CException('auth error');
+        if($configAuth['custom']){
+            $method = $configAuth['callback'];
+            if (!$method($this->config->getLogin(), $this->config->getPassword())) {
+                throw new Exchange1CException('auth error');
+            }
+        }
+        else{
+            $login = $this->config->getLogin();
+            $user = $this->session->get(self::SESSION_KEY.'_auth', null);
+
+            if (!$user || $user != $login) {
+                throw new Exchange1CException('auth error');
+            }
         }
     }
 
