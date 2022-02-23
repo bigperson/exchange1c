@@ -87,7 +87,7 @@ class AuthService
         // пользовательская настройка авторизации
         $configAuth = $this->config->getAuth();
 
-        if( $configAuth['custom'] ) {
+        if($configAuth['custom']) {
             $method = $configAuth['callback'];
             if (!$method($this->config->getLogin(), $this->config->getPassword())) {
                 throw new Exchange1CException('auth error');
