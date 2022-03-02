@@ -30,4 +30,6 @@ interface ProductInterface extends IdentifierInterface
 
     public function createProperties1c(PropertyCollection $properties);
 
+    public function createCategories1c($categories);
+
 }

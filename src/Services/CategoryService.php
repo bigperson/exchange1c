@@ -108,6 +108,7 @@ class CategoryService
         $this->beforeProductsSync();
         $productClass = $this->getProductClass();
         $productClass->createProperties1c($commerce->classifier->getProperties());
+        $productClass->createCategories1c($commerce->classifier->xml->Категории);
         $products = $commerce->catalog->getProducts();
         $this->ImportProcessDataBridge(new ConsoleProgressStart($products));
         foreach ($products as $product) {
