@@ -84,11 +84,21 @@ class AuthService
      */
     public function auth(): void
     {
-        $login = $this->config->getLogin();
-        $user = $this->session->get(self::SESSION_KEY.'_auth', null);
+        // пользовательская настройка авторизации
+        $configAuth = $this->config->getAuth();
 
-        if (!$user || $user != $login) {
-            throw new Exchange1CException('auth error');
+        if ($configAuth['custom']) {
+            $method = $configAuth['callback'];
+            if (!$method($this->config->getLogin(), $this->config->getPassword())) {
+                throw new Exchange1CException('auth error');
+            }
+        } else {
+            $login = $this->config->getLogin();
+            $user = $this->session->get(self::SESSION_KEY.'_auth', null);
+
+            if (!$user || $user != $login) {
+                throw new Exchange1CException('auth error');
+            }
         }
     }
 

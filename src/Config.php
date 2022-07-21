@@ -40,6 +40,11 @@ class Config
     private $filePart = 0;
 
     /**
+     * @var null
+     */
+    private $auth = [];
+
+    /**
      * @var array
      */
     private $models = [
@@ -133,6 +138,14 @@ class Config
         }
 
         return null;
+    }
+
+    /**
+     * @return null|array
+     */
+    public function getAuth(): ?array
+    {
+        return $this->auth;
     }
 
     /**
